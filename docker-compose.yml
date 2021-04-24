@@ -3,7 +3,7 @@ services:
     image: "mysql"
     restart: always
   data:
-    build: services/data_service 
+    build: ./services/data_service 
     ports:
       - "5000:5000"
   frontend:
