@@ -1,11 +1,11 @@
 services:
-  mysql:
-    image: "mysql"
   data:
-    build: ./services/data_service 
+    build: 
+      context: https://github.com/Antaresque/docker_serwis.git#:services/data_service
     ports:
-      - "5000:5000"
+      - "3000:3000"
   frontend:
-    build: frontend
+    build: 
+      context: https://github.com/Antaresque/docker_serwis.git#:frontend
     ports:
       - "80:80"
