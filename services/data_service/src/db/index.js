@@ -32,8 +32,8 @@ async function init() {
     });
 
     return new Promise((acc, rej) => {
-        pool.query(
-            'CREATE TABLE IF NOT EXISTS todo_items (id varchar(36), name varchar(255), completed boolean)',
+        const query = 'CREATE TABLE IF NOT EXISTS todo_items (id varchar(36), name varchar(255), completed boolean)';
+        pool.query(query,
             err => {
                 if (err) return rej(err);
 
@@ -59,9 +59,7 @@ async function getItems() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item, { completed: item.completed === 1 }),
                 ),
             );
         });
@@ -74,9 +72,7 @@ async function getItem(id) {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item, { completed: item.completed === 1 }),
                 )[0],
             );
         });
