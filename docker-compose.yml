@@ -1,7 +1,6 @@
 services:
   mysql:
     image: "mysql"
-    restart: always
   data:
     build: ./services/data_service 
     ports:
