@@ -16,20 +16,23 @@ const {
 let pool;
 
 async function init() {
-    const host = HOST_FILE ? fs.readFileSync(HOST_FILE) : HOST;
-    const user = USER_FILE ? fs.readFileSync(USER_FILE) : USER;
-    const password = PASSWORD_FILE ? fs.readFileSync(PASSWORD_FILE) : PASSWORD;
-    const database = DB_FILE ? fs.readFileSync(DB_FILE) : DB;
+    const host = HOST;
+    const user = USER;
+    const password = PASSWORD;
+    const database = DB;
 
     await waitPort({ host, port : 3306});
 
-    pool = mysql.createPool({
+    const options = {
         connectionLimit: 5,
         host,
         user,
         password,
         database,
-    });
+    };
+    console.log(options);
+
+    pool = mysql.createPool(options);
 
     return new Promise((acc, rej) => {
         const query = 'CREATE TABLE IF NOT EXISTS todo_items (id varchar(36), name varchar(255), completed boolean)';
