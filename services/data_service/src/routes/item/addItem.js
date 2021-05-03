@@ -8,6 +8,6 @@ module.exports = async (req, res) => {
         completed: false,
     };
 
-    await db.storeItem(item);
+    await db.insertItem('todo-items', item);
     res.send(item);
 };

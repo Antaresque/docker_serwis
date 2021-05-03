@@ -5,6 +5,6 @@ module.exports = async (req, res) => {
         name: req.body.name,
         completed: req.body.completed,
     });
-    const item = await db.getItem(req.params.id);
+    const item = await db.getItem('todo-items', req.params.id);
     res.send(item);
 };

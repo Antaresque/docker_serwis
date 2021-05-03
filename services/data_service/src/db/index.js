@@ -56,9 +56,9 @@ async function teardown() {
     });
 }
 
-async function getItems() {
+async function getItems(table_name, limit) {
     return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM todo_items', (err, rows) => {
+        pool.query(`SELECT * FROM ? TOP ?`, [table_name, limit], (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -69,9 +69,9 @@ async function getItems() {
     });
 }
 
-async function getItem(id) {
+async function getItem(table_name, id) {
     return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM todo_items WHERE id=?', [id], (err, rows) => {
+        pool.query('SELECT * FROM ? WHERE id=?', [table_name, id], (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -82,11 +82,11 @@ async function getItem(id) {
     });
 }
 
-async function storeItem(item) {
+async function insertItem(table_name, item) {
     return new Promise((acc, rej) => {
         pool.query(
-            'INSERT INTO todo_items (id, name, completed) VALUES (?, ?, ?)',
-            [item.id, item.name, item.completed ? 1 : 0],
+            'INSERT INTO ? (id, name, completed) VALUES (?, ?, ?)',
+            [table_name, item.id, item.name, item.completed ? 1 : 0],
             err => {
                 if (err) return rej(err);
                 acc();
@@ -122,7 +122,7 @@ module.exports = {
     teardown,
     getItems,
     getItem,
-    storeItem,
+    insertItem,
     updateItem,
     removeItem,
 };

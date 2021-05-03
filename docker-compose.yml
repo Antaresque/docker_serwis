@@ -25,6 +25,8 @@ services:
       - iz_data
     ports:
       - "3000:3000"
+    environment: 
+      NODE_ENV: production
 
   frontend:
     volumes:
@@ -35,14 +37,16 @@ services:
     ports:
       - "80:80"
 
-  #api:
-  #  build:
-  #    context: './api'
-  #    dockerfile: Dockerfile
-  #  networks:
-  #    - iz_net
-  #  ports:
-  #   - "4000:4000"
+  api:
+    build:
+      context: './api'
+      dockerfile: Dockerfile
+    networks:
+      - iz_net
+    ports:
+     - "4000:4000"
+    environment: 
+      NODE_ENV: production
 
 networks:
   iz_net:
