@@ -35,6 +35,15 @@ services:
     ports:
       - "80:80"
 
+  api:
+    build:
+      context: './api'
+      dockerfile: Dockerfile
+    networks:
+      - iz_net
+    ports:
+      - "4000:4000"
+
 networks:
   iz_net:
     driver: bridge
