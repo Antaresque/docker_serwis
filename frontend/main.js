@@ -1,4 +1,4 @@
-const API_URI = "http://localhost:3000";
+const API_URI = "http://data:3000";
 
 async function getData(){
     try {
