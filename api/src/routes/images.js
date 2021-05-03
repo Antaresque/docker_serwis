@@ -1,5 +1,7 @@
 const router = require('express').Router;
 
+import { getImagesHomepage, getImagesById, getComments } from '../controllers/data';
+
 // without login
 router.get('/', getImagesHomepage);
 router.get('/:id', getImagesById);
