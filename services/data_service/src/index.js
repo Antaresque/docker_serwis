@@ -1,4 +1,3 @@
-const bodyParser = require('body-parser');
 const express = require('express');
 require('dotenv').config();
 
@@ -6,8 +5,8 @@ const app = express();
 const db = require('./db');
 const router = require('./routes');
 
-app.use(bodyParser.json());
-app.use(express.static(__dirname + '/static'));
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(router);
 
 const items = require("./db/items");

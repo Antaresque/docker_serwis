@@ -1,17 +1,17 @@
-const bodyParser = require('body-parser');
 const express = require('express');
 require('dotenv').config();
-
 const app = express();
-const router = require('./routes');
 
-app.use(bodyParser.json());
-app.use(express.static(__dirname + '/static'));
-app.use(router);
+// routes
+const images = require('./routes/images');
+const images_user = require('./routes/images_user');
+const auth = require('./routes/auth');
 
-db.init().then(() => {
-    app.listen(4000, () => console.log('API | Listening on port 4000'));
-}).catch((err) => {
-    console.error(err);
-    process.exit(1);
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/v1/images', images);
+app.use('/v1/images', images_user);
+app.use('/v1/auth', auth);
+
+app.listen(4000, () => console.log('API | Listening on port 4000'));
