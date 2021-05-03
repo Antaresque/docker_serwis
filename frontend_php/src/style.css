@@ -10,7 +10,6 @@
     background-color: #181818;
     color: white;
 }
-img{
-    width:400px;
-    height:auto;
+.img-buttons{
+    background-color: teal;
 }
