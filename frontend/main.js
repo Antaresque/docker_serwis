@@ -13,7 +13,7 @@ async function getData(){
         console.error(err);
     }
 }
-
+//papiez polak gwalcil male dzieci
 document.getElementById("test").addEventListener("click", async (ev) => {
     let data = await getData();
     document.getElementById("dane").innerHTML = JSON.stringify(data);
