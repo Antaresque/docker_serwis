@@ -16,34 +16,35 @@
         <div class="row mid-row">
             <div class="col-2 left-col">
             </div>
-            <div class="col-6 main-col">
-
-                <div class="col-9 img-main">
-                    <div class="row img-title">
-                        <h1>Reimu na rzułfiu ałuuuu</h1>
+            <div class="col-6 main-col rounded">
+                <div class="row">
+                    <div class="col-9 img-main rounded">
+                        <div class="row img-title">
+                            <h2>Reimu na rzułfiu ałuuuu</h2>
+                        </div>
+                        <div class="row img-main">
+                            <img src="rakreimu.jpg"></img>
+                        </div>
                     </div>
-                    <div class="row img-main">
-                        <img src="rakreimu.jpg" class="img-fluid"></img>
+    
+                    <div class="col-3 img-buttons">
+                        <h3>Oceń/skomentuj!</h3>
+                        <button type="button" class="btn btn-success"><h1>+</h1></button>
+                        <button type="button" class="btn btn-danger"><h1> - </h1></button>
+                        <button type="button" class="btn btn-light"><h1>C</h1></button>
                     </div>
                 </div>
                 
-                <div class="col-3 img-buttons">
-                    <h1>pole pole</h1>
-                    <button type="button" class="btn btn-success"><h1>+</h1></button>
-                    <button type="button" class="btn btn-danger"><h1> - </h1></button>
-                    <button type="button" class="btn btn-light"><h1>Comments</h1></button>
-                </div>
                 
             </div>
-            <div class="col-4 right-col">
+            <div class="col-1"></div>
+            <div class="col-3 right-col">
                 <h2>nazwa użytkownika</h2>
                 <p>jakieś info</p>
             </div>
         </div>
         <div class="row foot-row">
-            <button id="test">TEST</button>
-            <div id="dane">DANE</div>
-            <script src="main.js"></script>
+            <h2>Made by the Paushteins</h2>
         </div>
     </div>
 </body>

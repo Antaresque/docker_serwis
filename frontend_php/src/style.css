@@ -5,11 +5,19 @@
 .mid-row{
     background-color: #252525;
     color: white;
+    padding:10px;
 }
 .foot-row{
     background-color: #181818;
     color: white;
 }
-.img-buttons{
-    background-color: teal;
+.img-main{
+    background-color:rgb(87, 87, 87);
+    padding-bottom:5px;
+}
+.img-title{
+    padding:5px;
+}
+.main-col{
+    padding: 5px;
 }
