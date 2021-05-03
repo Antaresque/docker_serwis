@@ -1,0 +1,1 @@
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '2}d5^1[A6f1%'

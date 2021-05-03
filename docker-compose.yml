@@ -1,11 +1,44 @@
+version: "3.7"
 services:
+  mysql:
+    container_name: iz_data_mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    networks:
+      - iz_data
+    volumes:
+      - ./volumes/iz-mysql-data:/var/lib/mysql
+      - ./volumes/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./volumes/iz-mysql-config/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment: 
+      MYSQL_ROOT_PASSWORD: 2}d5^1[A6f1%
+      MYSQL_DATABASE: iz_data
+
   data:
+    container_name: iz_data_service
     build: 
-      context: https://github.com/Antaresque/docker_serwis.git#:services/data_service
+      context: './services/data_service'
+      dockerfile: Dockerfile
+    networks:
+      - iz_net
+      - iz_data
     ports:
       - "3000:3000"
+
   frontend:
-    build: 
-      context: https://github.com/Antaresque/docker_serwis.git#:frontend
+    build:
+      context: './frontend'
+      dockerfile: Dockerfile
+    networks:
+      - iz_net
     ports:
       - "80:80"
+
+networks:
+  iz_net:
+    driver: bridge
+  iz_data:
+    driver: bridge
+volumes:
+  iz-mysql-data:
