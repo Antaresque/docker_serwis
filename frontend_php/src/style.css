@@ -1,4 +1,4 @@
-.upper-row{
+.navek{
     background-color: #181818;
     color: red;
 }
@@ -18,6 +18,16 @@
 .img-title{
     padding:5px;
 }
+.img-buttons{
+}
 .main-col{
     padding: 5px;
+}
+.user-data, .user-pfp{
+    background-color:rgb(87, 87, 87);
+    padding-bottom:5px;
+}
+.user{
+    padding:5px;
+    top: 72px;
 }
