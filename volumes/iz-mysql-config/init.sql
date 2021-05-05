@@ -51,7 +51,6 @@ CREATE TABLE `images` (
   `userid` int(11) NOT NULL,
   `address` text COLLATE utf8mb4_polish_ci NOT NULL,
   `upvotes` int(11) NOT NULL,
-  `downvotes` int(11) NOT NULL,
   `comments` int(11) NOT NULL,
   `title` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `description` text COLLATE utf8mb4_polish_ci NOT NULL,
@@ -66,7 +65,7 @@ CREATE TABLE `images` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `nickname` int(11) NOT NULL,
+  `nickname` varchar(50)) NOT NULL,
   `pass` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `crdate` datetime NOT NULL
