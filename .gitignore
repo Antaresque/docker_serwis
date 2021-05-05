@@ -3,9 +3,6 @@
 node_modules/
 volumes/iz-mysql-data/
 rakreimu.jpg
-<<<<<<< HEAD
 volumes/iz-store/
-=======
 lamp.PNG
 ral-min.png
->>>>>>> e84bed96e1bc0385c565b5c172a85e1146229a31
