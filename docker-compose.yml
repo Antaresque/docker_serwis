@@ -28,26 +28,6 @@ services:
     environment: 
       NODE_ENV: production
 
-  frontend:
-    volumes:
-      - './frontend_php/src:/var/www/app/'
-    image: romeoz/docker-apache-php
-    networks:
-      - iz_net
-    ports:
-      - "80:80"
-
-  api:
-    build:
-      context: './api'
-      dockerfile: Dockerfile
-    networks:
-      - iz_net
-    ports:
-     - "4000:4000"
-    environment: 
-      NODE_ENV: production
-
 networks:
   iz_net:
     driver: bridge
@@ -55,3 +35,4 @@ networks:
     driver: bridge
 volumes:
   iz-mysql-data:
+  iz-store:

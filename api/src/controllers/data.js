@@ -1,12 +1,12 @@
 const axios = require('axios');
-const URI = process.env.DATA_SERVICE_URI;
+const DATA_URI = process.env.DATA_SERVICE_URI;
 
 // funkcja pobierająca obrazki
 async function getImagesHomepage(req, res) {
     const limit = req.params.limit | 10;
 
     try {
-        const reply = await axios.get(URI + `/images?limit=${limit}`);
+        const reply = await axios.get(DATA_URI + `/images?limit=${limit}`);
         if(reply.status !== 200)
             throw(reply.statusText);
 
@@ -22,13 +22,13 @@ async function getImagesById(req, res) {
     const id = req.params.id;
 
     try {
-        const reply = await axios.get(URI + `/images/${id}`);
+        const reply = await axios.get(DATA_URI + `/images/${id}`);
 
         if(reply.status === 404) 
             res.status(404).send({})
         else if(reply.status !== 200) 
             throw(reply.statusText);
-        else
+        else 
             res.send(reply.data);
     }
     catch(err) { 
@@ -41,7 +41,7 @@ async function getComments(req, res) {
     const id = req.params.id;
 
     try {
-        const reply = await axios.get(URI + `/images/${id}/comments`);
+        const reply = await axios.get(DATA_URI + `/images/${id}/comments`);
         
         if(reply.status === 404) 
             res.status(404).send({})

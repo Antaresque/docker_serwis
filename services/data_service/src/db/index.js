@@ -1,6 +1,5 @@
+const { Sequelize } = require('sequelize');
 const waitPort = require('wait-port');
-const fs = require('fs');
-const mysql = require('mysql2');
 
 const {
     MYSQL_HOST: HOST,
@@ -13,7 +12,8 @@ const {
     MYSQL_DB_FILE: DB_FILE,
 } = process.env;
 
-let pool;
+let sequelize;
+let models = {};
 
 async function init() {
     const host = HOST;
@@ -21,108 +21,28 @@ async function init() {
     const password = PASSWORD;
     const database = DB;
 
+    sequelize = new Sequelize(database, user, password, {
+        host: host,
+        dialect: 'mysql',
+        pool: { max: 5, min: 0, idle: 10000 }
+    });
+
+    module.exports.Sequelize = Sequelize;
+    module.exports.sequelize = sequelize;
+    module.exports.Image = require('./images')(sequelize);
+
     await waitPort({ host, port : 3306});
 
-    const options = {
-        connectionLimit: 5,
-        host,
-        user,
-        password,
-        database,
-    };
-    console.log(options);
-
-    pool = mysql.createPool(options);
-
-    return new Promise((acc, rej) => {
-        const query = 'CREATE TABLE IF NOT EXISTS todo_items (id varchar(36), name varchar(255), completed boolean)';
-        pool.query(query,
-            err => {
-                if (err) return rej(err);
-
-                console.log(`Connected to mysql db at host ${HOST}`);
-                acc();
-            },
-        );
+    return sequelize.sync().then(() => {
+        console.log("Drop and re-sync db.");
     });
 }
 
 async function teardown() {
-    return new Promise((acc, rej) => {
-        pool.end(err => {
-            if (err) rej(err);
-            else acc();
-        });
-    });
-}
-
-async function getItems(table_name, limit) {
-    return new Promise((acc, rej) => {
-        pool.query(`SELECT * FROM ? TOP ?`, [table_name, limit], (err, rows) => {
-            if (err) return rej(err);
-            acc(
-                rows.map(item =>
-                    Object.assign({}, item, { completed: item.completed === 1 }),
-                ),
-            );
-        });
-    });
-}
-
-async function getItem(table_name, id) {
-    return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM ? WHERE id=?', [table_name, id], (err, rows) => {
-            if (err) return rej(err);
-            acc(
-                rows.map(item =>
-                    Object.assign({}, item, { completed: item.completed === 1 }),
-                )[0],
-            );
-        });
-    });
-}
-
-async function insertItem(table_name, item) {
-    return new Promise((acc, rej) => {
-        pool.query(
-            'INSERT INTO ? (id, name, completed) VALUES (?, ?, ?)',
-            [table_name, item.id, item.name, item.completed ? 1 : 0],
-            err => {
-                if (err) return rej(err);
-                acc();
-            },
-        );
-    });
-}
-
-async function updateItem(id, item) {
-    return new Promise((acc, rej) => {
-        pool.query(
-            'UPDATE todo_items SET name=?, completed=? WHERE id=?',
-            [item.name, item.completed ? 1 : 0, id],
-            err => {
-                if (err) return rej(err);
-                acc();
-            },
-        );
-    });
-}
-
-async function removeItem(id) {
-    return new Promise((acc, rej) => {
-        pool.query('DELETE FROM todo_items WHERE id = ?', [id], err => {
-            if (err) return rej(err);
-            acc();
-        });
-    });
+    return sequelize.close();
 }
 
 module.exports = {
     init,
-    teardown,
-    getItems,
-    getItem,
-    insertItem,
-    updateItem,
-    removeItem,
+    teardown
 };
