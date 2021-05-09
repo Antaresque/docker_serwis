@@ -1,16 +1,15 @@
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '2}d5^1[A6f1%'
 
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 03 Maj 2021, 17:55
--- Wersja serwera: 10.1.38-MariaDB
--- Wersja PHP: 7.3.4
+-- Czas generowania: 09 Maj 2021, 21:47
+-- Wersja serwera: 10.4.18-MariaDB
+-- Wersja PHP: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,7 +20,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `data`
+-- Baza danych: `iz_data`
 --
 
 -- --------------------------------------------------------
@@ -55,8 +54,18 @@ CREATE TABLE `images` (
   `comments` int(11) NOT NULL,
   `title` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `description` text COLLATE utf8mb4_polish_ci NOT NULL,
-  `crdate` datetime NOT NULL
+  `crdate` datetime NOT NULL,
+  `createdAt` date DEFAULT NULL,
+  `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Zrzut danych tabeli `images`
+--
+
+INSERT INTO `images` (`id`, `userid`, `address`, `upvotes`, `comments`, `title`, `description`, `crdate`, `createdAt`, `updatedAt`) VALUES
+(1, 1, '1.jpg', 20, 2, 'test', 'test', '2021-05-05 20:18:40', NULL, NULL),
+(2, 1, '2.jpg', 30, 3, 'nazwa', 'dpgjdsopgjsdpogjdsopgjsopg', '2021-05-05 20:19:02', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -66,11 +75,18 @@ CREATE TABLE `images` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `nickname` varchar(50)) NOT NULL,
+  `nickname` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `pass` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `crdate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Zrzut danych tabeli `users`
+--
+
+INSERT INTO `users` (`id`, `nickname`, `pass`, `email`, `crdate`) VALUES
+(1, 'janusz', 'janusz123', 'janusz@test.pl', '2021-05-05 20:18:12');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -99,7 +115,7 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
@@ -112,13 +128,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT dla tabeli `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ograniczenia dla zrzutów tabel
@@ -141,3 +157,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
