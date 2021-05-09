@@ -21,6 +21,8 @@ async function init() {
     const password = PASSWORD;
     const database = DB;
 
+    await waitPort({ host, port : 3306});
+
     sequelize = new Sequelize(database, user, password, {
         host: host,
         dialect: 'mysql',
@@ -30,8 +32,6 @@ async function init() {
     module.exports.Sequelize = Sequelize;
     module.exports.sequelize = sequelize;
     module.exports.Image = require('./images')(sequelize);
-
-    await waitPort({ host, port : 3306});
 
     return sequelize.sync().then(() => {
         console.log("Drop and re-sync db.");

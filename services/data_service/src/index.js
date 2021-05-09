@@ -5,7 +5,7 @@ const app = express();
 const db = require('./db');
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 //const items = require("./db/items");
 

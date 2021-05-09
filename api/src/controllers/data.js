@@ -2,15 +2,13 @@ const axios = require('axios');
 const DATA_URI = process.env.DATA_SERVICE_URI;
 
 // funkcja pobierająca obrazki
-async function getImagesHomepage(req, res) {
-    const limit = req.params.limit | 10;
-
+async function getImagesHomepage(req, res, limit) {
     try {
         const reply = await axios.get(DATA_URI + `/images?limit=${limit}`);
         if(reply.status !== 200)
             throw(reply.statusText);
 
-        res.send(reply.data);
+       return reply.data;
     }
     catch(err) { 
         console.log(err);
