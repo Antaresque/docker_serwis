@@ -9,7 +9,7 @@ const images = require('./routes/images');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/v1/images', images);
+app.use('/images', images);
 
 //app.use('/v1/images', images_user);
 //app.use('/v1/auth', auth);

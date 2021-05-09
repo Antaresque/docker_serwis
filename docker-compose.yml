@@ -8,8 +8,8 @@ services:
       - iz_data
     volumes:
       - ./volumes/iz-mysql-data:/var/lib/mysql:rw
-      - ./volumes/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./volumes/iz-mysql-config/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./volumes/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ./volumes/iz-mysql-config/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     environment: 
       MYSQL_ROOT_PASSWORD: 2}d5^1[A6f1%
       MYSQL_DATABASE: iz_data
@@ -20,14 +20,14 @@ services:
       dockerfile: Dockerfile
     networks:
       - iz_data
-    ports:
-      - "3000:3000"
+      - iz_data_api
     environment: 
       NODE_ENV: production
     depends_on: 
       - mysql
     
   frontend:
+    container_name: "strona_www"
     volumes:
       - './frontend_php/src:/var/www/app/'
     image: romeoz/docker-apache-php
@@ -42,7 +42,7 @@ services:
       dockerfile: Dockerfile
     networks:
       - iz_net
-      - iz_data
+      - iz_data_api
     ports:
       - "4000:4000"
     environment: 
@@ -53,6 +53,8 @@ networks:
     driver: bridge
   iz_data:
     driver: bridge
+  iz_data_api:
+      driver: bridge
 volumes:
   iz-mysql-data:
   iz-store:
