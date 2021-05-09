@@ -54,7 +54,7 @@ networks:
   iz_data:
     driver: bridge
   iz_data_api:
-      driver: bridge
+    driver: bridge
 volumes:
   iz-mysql-data:
   iz-store:
