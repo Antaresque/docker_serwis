@@ -1,5 +1,3 @@
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '2}d5^1[A6f1%'
-
 -- phpMyAdmin SQL Dump
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
@@ -13,12 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Baza danych: `iz_data`
 --
@@ -29,7 +21,7 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `comments`
 --
 
-CREATE TABLE `comments` (
+CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `comment` text COLLATE utf8mb4_polish_ci NOT NULL,
@@ -46,7 +38,7 @@ CREATE TABLE `comments` (
 -- Struktura tabeli dla tabeli `images`
 --
 
-CREATE TABLE `images` (
+CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `address` text COLLATE utf8mb4_polish_ci NOT NULL,
@@ -54,18 +46,16 @@ CREATE TABLE `images` (
   `comments` int(11) NOT NULL,
   `title` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `description` text COLLATE utf8mb4_polish_ci NOT NULL,
-  `crdate` datetime NOT NULL,
-  `createdAt` date DEFAULT NULL,
-  `updatedAt` date DEFAULT NULL
+  `crdate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Zrzut danych tabeli `images`
 --
 
-INSERT INTO `images` (`id`, `userid`, `address`, `upvotes`, `comments`, `title`, `description`, `crdate`, `createdAt`, `updatedAt`) VALUES
-(1, 1, '1.jpg', 20, 2, 'test', 'test', '2021-05-05 20:18:40', NULL, NULL),
-(2, 1, '2.jpg', 30, 3, 'nazwa', 'dpgjdsopgjsdpogjdsopgjsopg', '2021-05-05 20:19:02', NULL, NULL);
+INSERT INTO `images` (`id`, `userid`, `address`, `upvotes`, `comments`, `title`, `description`, `crdate`) VALUES
+(1, 1, '1.jpg', 20, 2, 'test', 'test', '2021-05-05 20:18:40'),
+(2, 1, '2.jpg', 30, 3, 'nazwa', 'dpgjdsopgjsdpogjdsopgjsopg', '2021-05-05 20:19:02');
 
 -- --------------------------------------------------------
 
@@ -73,7 +63,7 @@ INSERT INTO `images` (`id`, `userid`, `address`, `upvotes`, `comments`, `title`,
 -- Struktura tabeli dla tabeli `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
   `nickname` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `pass` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
@@ -154,7 +144,4 @@ ALTER TABLE `images`
   ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 

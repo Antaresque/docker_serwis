@@ -13,6 +13,9 @@ module.exports = (sequelize) => {
         comments: DataTypes.INTEGER,
         title: DataTypes.STRING,
         description: DataTypes.TEXT,
-        crdate: DataTypes.DATE
-    })
+        crdate: DataTypes.DATE,
+    },
+    {
+        timestamps: false
+    });
 };

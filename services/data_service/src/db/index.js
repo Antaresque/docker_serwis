@@ -29,13 +29,10 @@ async function init() {
         pool: { max: 5, min: 0, idle: 10000 }
     });
 
-    module.exports.Sequelize = Sequelize;
     module.exports.sequelize = sequelize;
     module.exports.Image = require('./images')(sequelize);
 
-    return sequelize.sync().then(() => {
-        console.log("Drop and re-sync db.");
-    });
+    return new Promise((res, rej) => res('db działa'));
 }
 
 async function teardown() {
