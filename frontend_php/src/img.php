@@ -60,7 +60,7 @@
                             foreach($comms as $el): ?>
                                 <div class='row comment rounded'>
                                     <div class='col-10'>
-                                        <h3><?= $el->userid ?></h3>
+                                        <h3><?= $el->user->nickname ?></h3>
                                         <p><?= $el->comment ?></p>
                                     </div>
                                     <div class='col-2 comment-buttons'>

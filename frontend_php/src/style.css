@@ -6,25 +6,34 @@
     background-color: #252525;
     color: white;
     padding:10px;
+    min-height:88.9vh;
 }
 .foot-row{
     background-color: #181818;
     color: white;
 }
 .img-main{
-    background-color:rgb(87, 87, 87);
+    background-color: #181818;
     padding-bottom:5px;
 }
 .img-title{
     padding:5px;
 }
-.img-buttons{
-}
 .main-col{
     padding: 5px;
 }
+.comment{
+    background-color: #181818;
+    color:white;
+    padding: 5px;
+}
+.comment-buttons{
+    padding:5px;
+    text-align: center;
+    
+}
 .user-data, .user-pfp{
-    background-color:rgb(87, 87, 87);
+    background-color: #181818;
     padding-bottom:5px;
 }
 .user{

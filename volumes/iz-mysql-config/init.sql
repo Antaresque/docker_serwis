@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `comment` text COLLATE utf8mb4_polish_ci NOT NULL,
   `date` date NOT NULL,
   `upvotes` int(11) NOT NULL,
-  `downvotes` int(11) NOT NULL,
   `imgid` int(11) NOT NULL,
   `crdate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
