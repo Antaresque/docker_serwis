@@ -10,6 +10,16 @@
     <title>Jbzdy2</title>
 </head>
 <body>
+
+    <?php
+        require_once 'curl_helper.php';
+
+        $data = CurlHelper::perform_http_request("GET", "http://api:4000/images");
+
+        $data = json_decode($data);
+
+        echo $data[0]->title;
+    ?>  
     <nav class="navbar navek sticky-top">
             <h2>JBZDY2</h2>
         </nav>

@@ -29,7 +29,7 @@ services:
   frontend:
     container_name: "strona_www"
     volumes:
-      - './frontend_php/src:/var/www/app/'
+      - './frontend_php/src:/var/www/app:ro'
     image: romeoz/docker-apache-php
     networks:
       - iz_net
@@ -56,6 +56,8 @@ services:
       - './volumes/iz-store:/usr/src/public:rw'
     networks:
       - iz_net
+    ports:
+      - "5000:5000"
     environment: 
       NODE_ENV: production
 

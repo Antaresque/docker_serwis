@@ -1,4 +1,4 @@
-// This class has all the necessary code for making API calls thru curl library
+<?php
 
 class CurlHelper {
 
