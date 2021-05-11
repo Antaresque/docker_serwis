@@ -1,6 +1,7 @@
 .ionide/
 node_modules/
 volumes/iz-mysql-data/
+volumes/iz-mysql-auth/
 rakreimu.jpg
 volumes/iz-store/
 lamp.PNG

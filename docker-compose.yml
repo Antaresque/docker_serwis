@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  mysql_dane:
+  mysql_data:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -24,7 +24,7 @@ services:
     environment: 
       NODE_ENV: production
     depends_on: 
-      - mysql_dane
+      - mysql_data
     
   frontend:
     container_name: "strona_www"
@@ -74,9 +74,9 @@ services:
       MYSQL_ROOT_PASSWORD: 2}d5^1[A6f1%
       MYSQL_DATABASE: iz_auth
 
-  data:
+  auth:
     build: 
-      context: './services/data_service'
+      context: './services/auth_service'
       dockerfile: Dockerfile
     networks:
       - iz_auth
