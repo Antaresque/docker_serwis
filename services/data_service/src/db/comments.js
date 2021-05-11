@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
         comment: DataTypes.TEXT,
         date: DataTypes.DATE,
         upvotes: DataTypes.INTEGER,
-        comments: DataTypes.INTEGER,
         crdate: DataTypes.DATE,
     },
     {

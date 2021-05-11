@@ -56,8 +56,6 @@ services:
       - './volumes/iz-store:/app/src/public:rw'
     networks:
       - iz_net
-    ports:
-      - "5000:5000"
     environment: 
       NODE_ENV: production
 

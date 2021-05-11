@@ -29,6 +29,7 @@ async function getComments(req, res){
         where: { imgid: id }
     }
     const items = await Comment.findAll(options);
+    res.send(items);
 }
 
 module.exports = {
