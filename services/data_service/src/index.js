@@ -7,8 +7,6 @@ const db = require('./db');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//const items = require("./db/items");
-
 db.init().then(() => {
     const router = require('./routes');
     app.use(router);

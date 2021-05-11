@@ -29,9 +29,19 @@ async function init() {
     });
 
     module.exports.sequelize = sequelize;
-    module.exports.Image = require('./images')(sequelize);
-    module.exports.Comment = require('./comments')(sequelize);
-    module.exports.User = require('./users')(sequelize);
+    MImage = require('./images')(sequelize);
+    MComment = require('./comments')(sequelize);
+    MUser = require('./users')(sequelize);
+
+    MImage.hasMany(MUser, {foreignKey: 'userid'});
+    MUser.belongsTo(MImage);
+
+    MUser.hasMany(MComment, {foreignKey: 'userid'});
+    MComment.belongsTo(MUser);
+
+    module.exports.Image = MImage;
+    module.exports.Comment = MComment;
+    module.exports.User = MUser;
 
     return new Promise((res, _) => res());
 }
