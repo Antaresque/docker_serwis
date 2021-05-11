@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const { getImagesHomepage, getImagesById, getComments } = require('../controllers/data');
-const { getImageFile } = require('../controllers/store');
 const { isEmpty } = require('../helper');
 
 /**
@@ -11,7 +10,7 @@ const { isEmpty } = require('../helper');
  * @param page - which page (offset), default: 1
  * @route /images/
  */
-router.get('/', async (req, res) => {
+async function getAll (req, res) {
     const limit = parseInt(req.query.limit) ? req.query.limit : 10;
     const page  = parseInt(req.query.page)  ? req.query.page  : 1;
 
@@ -27,7 +26,7 @@ router.get('/', async (req, res) => {
         console.error(`${err.config.url}: ${err.message}`);
         res.sendStatus(500);
     }
-});
+};
 
 /**
  * get image by ID
@@ -35,7 +34,7 @@ router.get('/', async (req, res) => {
  * @param id - ID of the image
  * @route /images/:id/ 
  */ 
-router.get('/:id', async (req, res) => {
+async function getOne (req, res) {
     if(!parseInt(req.params.id)){ 
         res.sendStatus(400);
         return;
@@ -56,7 +55,7 @@ router.get('/:id', async (req, res) => {
         console.error(`${err.config.url}: ${err.message}`);
         res.sendStatus(500);
     }
-});
+}
 
 /**
  * get comments of image
@@ -64,7 +63,7 @@ router.get('/:id', async (req, res) => {
  * @param id - ID of the image
  * @route /images/:id/comments
  */
-router.get('/:id/comments', async (req, res) => {
+async function getComments (req, res) {
     if(!parseInt(req.params.id)){
         res.sendStatus(400);
         return;
@@ -84,7 +83,7 @@ router.get('/:id/comments', async (req, res) => {
         console.error(`${err.config.url}: ${err.message}`);
         res.sendStatus(500);
     }
-});
+}
 
 /**
  * get file (probably not) (?) (not sure if needed)
@@ -109,4 +108,8 @@ router.get('/:id/comments', async (req, res) => {
     }
 });*/
 
-module.exports = router;
+module.exports = {
+    getOne,
+    getAll,
+    getComments
+}
