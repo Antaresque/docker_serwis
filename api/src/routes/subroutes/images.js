@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getImagesHomepage, getImagesById, getComments } = require('../controllers/data');
+const { getImagesHomepage, getImagesById, getImageComments } = require('../controllers/data');
 const { isEmpty } = require('../helper');
 
 /**
@@ -72,7 +72,7 @@ async function getComments (req, res) {
     const id = parseInt(req.params.id);
 
     try {
-        const data = await getComments(id);
+        const data = await getImageComments(id);
 
         if(isEmpty(data))
             res.sendStatus(404);

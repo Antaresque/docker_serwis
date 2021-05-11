@@ -1,17 +1,17 @@
 const router = require('express').Router();
 
-const imageRoutes = require("./subroutes/images");
-//const authRoutes = require("./subroutes/auth");
-//const imageUserRoutes = require('./subroutes/imagesuser');
-//const imageOwnerRoutes = require('./subroutes/imagesowner');
+const { getAll, getOne, getComments } = require("./subroutes/images");
+//const { login, register } = require("./subroutes/auth");
+//const { uploadImage, addComment, setVote, undoVote } = require('./subroutes/imagesuser');
+//const { updateImage, deleteImage, deleteComment } = require('./subroutes/imagesowner');
 
-router.get("/images", imageRoutes.getAll);
-router.get("/images/:id", imageRoutes.getOne);
-router.get("/images/:id/comments", imageRoutes.getComments);
+router.get("/images", getAll);
+router.get("/images/:id", getOne);
+router.get("/images/:id/comments", getComments);
 
 /*
-router.post("/login", authRoutes.login);
-router.post("/register", authRoutes.register);
+router.post("/login", login);
+router.post("/register", register);
 */
 
 /*
@@ -27,6 +27,5 @@ router.delete('/images/:id', deleteImage);
 router.delete('/images/:id/comments', deleteComment);
 
 */
-
 
 module.exports = router;

@@ -19,7 +19,7 @@ async function getImagesById(id) {
     return reply.data;
 }
 
-async function getComments(id) {
+async function getImageComments(id) {
     const reply = await axios.get(DATA_URI + `/images/${id}/comments`);
         
     if(reply.status !== 200 && reply.status !== 404)
@@ -32,5 +32,5 @@ async function getComments(id) {
 module.exports = {
     getImagesHomepage, 
     getImagesById, 
-    getComments
+    getImageComments
 }
