@@ -33,7 +33,7 @@
                                 <h2><?= $el->title ?></h2>
                             </div>
                             <div class='row img-main'>
-                                <img class='img-fluid' src='http://store:5000/public/lamp.PNG'></img>
+                                <img class='img-fluid' src='images.php?obrazek=<?= $el->address ?>'></img>
                             </div>
                         </div>
         
