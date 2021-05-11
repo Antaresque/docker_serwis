@@ -8,8 +8,16 @@ async function getImageById(req, res) {
 }
 
 async function getImages(req, res){
-    const limit = req.params.limit;
-    const items = await Image.findAll();
+    const limit = parseInt(req.query.limit);
+    const offset = limit * ( parseInt(req.query.page) - 1 );
+
+    const options = { 
+        order: [['crdate', 'DESC']], 
+        limit: limit, 
+        offset: offset
+    }
+    
+    const items = await Image.findAll(options);
     res.send(items);
 }
 

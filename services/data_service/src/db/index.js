@@ -13,7 +13,6 @@ const {
 } = process.env;
 
 let sequelize;
-let models = {};
 
 async function init() {
     const host = HOST;
@@ -31,8 +30,10 @@ async function init() {
 
     module.exports.sequelize = sequelize;
     module.exports.Image = require('./images')(sequelize);
+    module.exports.Comment = require('./comments')(sequelize);
+    module.exports.User = require('./users')(sequelize);
 
-    return new Promise((res, rej) => res('db działa'));
+    return new Promise((res, _) => res());
 }
 
 async function teardown() {

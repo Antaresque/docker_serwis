@@ -48,6 +48,17 @@ services:
     environment: 
       NODE_ENV: production
 
+  store:
+    build:
+      context: './services/store_service'
+      dockerfile: Dockerfile
+    volumes:
+      - './volumes/iz-store:/usr/src/public:rw'
+    networks:
+      - iz_net
+    environment: 
+      NODE_ENV: production
+
 networks:
   iz_net:
     driver: bridge

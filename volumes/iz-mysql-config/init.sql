@@ -81,7 +81,6 @@ INSERT INTO `images` (`id`, `userid`, `address`, `upvotes`, `comments`, `title`,
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
   `nickname` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
-  `pass` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `crdate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
@@ -90,12 +89,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `users` (`id`, `nickname`, `pass`, `email`, `crdate`) VALUES
-(1, 'janusz', 'janusz123', 'janusz@test.pl', '2021-05-05 20:18:12'),
-(2, 'seba2137', '2137', 'sebastian@seba.com', '2021-05-08 11:19:39'),
-(3, 'pawulon69', 'jp2gmd', 'papaj@interia.pl', '2021-05-03 10:14:38'),
-(4, 'antaresque-', 'altajtopedal', 'antaresque@gmail.com', '2021-05-01 21:37:00'),
-(5, 'Rolsig', 'heheciota', 'dante.rydzyk@gmail.com', '2021-05-01 21:37:00');
+INSERT INTO `users` (`id`, `nickname`, `email`, `crdate`) VALUES
+(1, 'janusz', 'janusz@test.pl', '2021-05-05 20:18:12'),
+(2, 'seba2137', 'sebastian@seba.com', '2021-05-08 11:19:39'),
+(3, 'pawulon69', 'papaj@interia.pl', '2021-05-03 10:14:38'),
+(4, 'antaresque-', 'antaresque@gmail.com', '2021-05-01 21:37:00'),
+(5, 'Rolsig', 'dante.rydzyk@gmail.com', '2021-05-01 21:37:00');
 
 --
 -- Indeksy dla zrzutów tabel
