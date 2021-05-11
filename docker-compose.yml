@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  mysql:
+  mysql_dane:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -20,11 +20,11 @@ services:
       dockerfile: Dockerfile
     networks:
       - iz_data
-      - iz_data_api
+      - iz_api
     environment: 
       NODE_ENV: production
     depends_on: 
-      - mysql
+      - mysql_dane
     
   frontend:
     container_name: "strona_www"
@@ -42,7 +42,7 @@ services:
       dockerfile: Dockerfile
     networks:
       - iz_net
-      - iz_data_api
+      - iz_api
     ports:
       - "4000:4000"
     environment: 
@@ -53,7 +53,7 @@ services:
       context: './services/store_service'
       dockerfile: Dockerfile
     volumes:
-      - './volumes/iz-store:/usr/src/public:rw'
+      - './volumes/iz-store:/app/src/public:rw'
     networks:
       - iz_net
     ports:
@@ -61,13 +61,41 @@ services:
     environment: 
       NODE_ENV: production
 
+  mysql_auth:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    networks:
+      - iz_auth
+    volumes:
+      - ./volumes/iz-mysql-auth:/var/lib/mysql:rw
+      - ./volumes/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+    environment: 
+      MYSQL_ROOT_PASSWORD: 2}d5^1[A6f1%
+      MYSQL_DATABASE: iz_auth
+
+  data:
+    build: 
+      context: './services/data_service'
+      dockerfile: Dockerfile
+    networks:
+      - iz_auth
+      - iz_api
+    environment: 
+      NODE_ENV: production
+    depends_on: 
+      - mysql_auth
+
 networks:
   iz_net:
     driver: bridge
   iz_data:
     driver: bridge
-  iz_data_api:
+  iz_api:
+    driver: bridge
+  iz_auth:
     driver: bridge
 volumes:
   iz-mysql-data:
+  iz-mysql-auth:
   iz-store:

@@ -7,12 +7,9 @@ const db = require('./db');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//const items = require("./db/items");
-
 db.init().then(() => {
-    const router = require('./routes');
-    app.use(router);
-    app.listen(3000, () => console.log('DATA | Listening on port 3000'));
+    app.use(require('./routes'));
+    app.listen(3000, () => console.log('AUTH | Listening on port 3100'));
 }).catch((err) => {
     console.error(err);
     process.exit(1);
