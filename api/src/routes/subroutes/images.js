@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-const { getImagesHomepage, getImagesById, getImageComments } = require('../controllers/data');
-const { isEmpty } = require('../helper');
+const { getImagesHomepage, getImagesById, getImageComments } = require('../../controllers/data');
+const { isEmpty } = require('../../helper');
 
 /**
  * get data about X images
