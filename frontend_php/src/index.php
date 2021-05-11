@@ -10,15 +10,13 @@
     <title>Jbzdy2</title>
 </head>
 <body>
-
     <?php
         require_once 'curl_helper.php';
 
         $data = CurlHelper::perform_http_request("GET", "http://api:4000/images");
+        $dataIm = CurlHelper::perform_http_request("GET", "http://api:4000/images");
 
         $data = json_decode($data);
-
-        echo $data[0]->title;
     ?>  
     <nav class="navbar navek sticky-top">
             <h2>JBZDY2</h2>
@@ -28,51 +26,29 @@
             <div class="col-2 left-col">
             </div>
             <div class="col-5 main-col rounded">
-                <div class="row">
-                    <div class="col-10 img-main rounded">
-                        <div class="row img-title">
-                            <h2>Reimu na rzułfiu ałuuuu</h2>
+                <?php foreach($data as $el): ?>
+                    <div class='row'>
+                        <div class='col-10 img-main rounded'>
+                            <div class='row img-title'>
+                                <h2><?= $el->title ?></h2>
+                            </div>
+                            <div class='row img-main'>
+                                <img class='img-fluid' src='http://store:5000/public/lamp.PNG'></img>
+                            </div>
                         </div>
-                        <div class="row img-main">
-                            <img class="img-fluid" src="rakreimu.jpg"></img>
+        
+                        <div class='col-2 img-buttons mt-auto text-center'>
+                            <button type='button' class='btn btn-lg btn-danger'>
+                                <i class='fa fa-heart'></i>
+                            </button>
+                            <p><?= $el->upvotes ?></p>
+                            <button type='button' class='btn btn-lg btn-light'>
+                                <i class='fa fa-comments-o'></i>
+                            </button>
+                            <p><?= $el->comments ?></p>
                         </div>
-                    </div>
-    
-                    <div class="col-2 img-buttons mt-auto text-center">
-                        <button type="button" class="btn btn-lg btn-danger">
-                            <i class="fa fa-heart"></i>
-                        </button>
-                        <p>21</p>
-                        <button type="button" class="btn btn-lg btn-light">
-                            <i class="fa fa-comments-o"></i>
-                        </button>
-                        <p>37</p>
-                    </div>
-                </div>
-                <p></p>
-                <div class="row">
-                    <div class="col-10 img-main rounded">
-                        <div class="row img-title">
-                            <h2>Pjenkna lampa z umineko</h2>
-                        </div>
-                        <div class="row img-main">
-                            <img class="img-fluid" src="lamp.PNG"></img>
-                        </div>
-                    </div>
-    
-                    <div class="col-2 img-buttons mt-auto text-center">
-                        <button type="button" class="btn btn-lg btn-danger">
-                            <i class="fa fa-heart"></i>
-                        </button>
-                        <p>69</p>
-                        <button type="button" class="btn btn-lg btn-light">
-                            <i class="fa fa-comments-o"></i>
-                        </button>
-                        <p>420</p>
-                    </div>
-                </div>
-                
-                
+                    </div><p></p>
+                <?php endforeach; ?>
             </div>
             <div class="col-5 right-col">
                 <div class="row user sticky-top">
