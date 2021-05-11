@@ -1,5 +1,6 @@
 .ionide/
 node_modules/
+volumes/iz-mysql-auth/
 volumes/iz-mysql-data/
 volumes/iz-mysql-auth/
 rakreimu.jpg
