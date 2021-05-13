@@ -19,8 +19,10 @@
         $data = json_decode($data);
     ?>  
     <nav class="navbar navek sticky-top">
-            <h2>JBZDY2</h2>
-        </nav>
+        <a href="index.php">
+            <h2>ABCD</h2>
+        </a>
+    </nav>
     <div class="container-fluid">
         <div class="row mid-row">
             <div class="col-2 left-col">
@@ -30,7 +32,9 @@
                     <div class='row'>
                         <div class='col-10 img-main rounded'>
                             <div class='row img-title'>
-                                <h2><?= $el->title ?></h2>
+                                <a href="img.php?id=<?= $el->id ?>">
+                                    <h2><?= $el->title ?></h2>
+                                </a>
                             </div>
                             <div class='row img-main'>
                                 <img class='img-fluid' src='images.php?obrazek=<?= $el->address ?>'></img>
@@ -65,7 +69,6 @@
             </div>
         </div>
         <div class="row foot-row">
-            <h2>Made by the Paushteins</h2>
         </div>
     </div>
 </body>
