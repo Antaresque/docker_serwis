@@ -19,7 +19,9 @@
         $comms = json_decode($comms);
     ?>  
     <nav class="navbar navek sticky-top">
-            <h2>JBZDY2</h2>
+            <a href="index.php">
+                <h2>ABCD</h2>
+            </a>
         </nav>
     <div class="container-fluid">
         <div class="row mid-row">
@@ -92,7 +94,6 @@
             </div>
         </div>
         <div class="row foot-row">
-            <h2>Made by the Paushteins</h2>
         </div>
     </div>
 </body>
