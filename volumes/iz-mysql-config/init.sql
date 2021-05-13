@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS `comments` (
 --
 
 INSERT INTO `comments` (`id`, `userid`, `comment`, `date`, `upvotes`, `downvotes`, `imgid`, `crdate`) VALUES
-(1, 4, 'noooo powiem ci uczniu pjenkne pjenkne, widac ten skill w fotoszopie', '2021-05-02', 2137, 69, 4, '2021-05-02 21:37:37'),
-(2, 2, 'chujowe nie pozdrawiam walaszek lepszy styl ma', '2021-05-03', 69, 420, 4, '2021-05-03 00:00:00'),
-(3, 5, 'obrazek piekny ale uzytkownik gnoj', '2021-05-10', 2137, 1, 3, '2021-05-10 00:00:00'),
-(4, 5, 'kurla ale taka to by do domu zabral MMMM', '2021-05-05', 69, 3, 7, '2021-05-05 21:37:00');
+(1, 4, 'komentarz 1', '2021-05-02', 2137, 69, 4, '2021-05-02 21:37:37'),
+(2, 2, 'komentarz 2', '2021-05-03', 69, 420, 4, '2021-05-03 00:00:00'),
+(3, 5, 'komentarz 3', '2021-05-10', 2137, 1, 3, '2021-05-10 00:00:00'),
+(4, 5, 'komentarz 4', '2021-05-05', 69, 3, 7, '2021-05-05 21:37:00');
 
 -- --------------------------------------------------------
 
@@ -65,11 +65,11 @@ CREATE TABLE IF NOT EXISTS `images` (
 INSERT INTO `images` (`id`, `userid`, `address`, `upvotes`, `comments`, `title`, `description`, `crdate`) VALUES
 (1, 1, '1.jpg', 20, 2, 'test', 'test', '2021-05-05 20:18:40'),
 (2, 1, '2.jpg', 30, 3, 'nazwa', 'dpgjdsopgjsdpogjdsopgjsopg', '2021-05-05 20:19:02'),
-(3, 2, 'papiez.png', 69, 1, 'hehe pawulon', '2137', '2021-05-09 00:00:00'),
-(4, 5, 'reimu.png', 21, 37, 'reimu na rzulfiu auuuuu', 'zajelo 7h co sadzicie', '2021-05-02 21:37:00'),
-(5, 5, 'lampa.png', 69, 420, 'pjenkna lampa z umineko', 'oto lampa z tieru B mojej top tier listy lamp z umineko', '2021-05-02 21:37:00'),
+(3, 2, 'kosciol.png', 69, 1, 'katedra', '2137', '2021-05-09 00:00:00'),
+(4, 5, 'reimu.png', 21, 37, 'reimu na rzulfiu', 'zajelo 7h co sadzicie', '2021-05-02 21:37:00'),
+(5, 5, 'lampa.png', 69, 420, 'ladny zyrandol', 'oto lampa z tieru B mojej top tier listy lamp z umineko', '2021-05-02 21:37:00'),
 (6, 4, 'beatoreechee.png', 11037, 21, 'co tam batora', 'znowu nawiedzmowane', '2021-05-02 21:37:00'),
-(7, 4, 'rika.png', 10000, 22, 'nipaaaa', 'nipa cute', '2021-05-02 21:37:00');
+(7, 4, 'rika.png', 10000, 22, 'furude rika', 'cute', '2021-05-02 21:37:00');
 
 -- --------------------------------------------------------
 
@@ -91,9 +91,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `nickname`, `email`, `crdate`) VALUES
 (1, 'janusz', 'janusz@test.pl', '2021-05-05 20:18:12'),
 (2, 'seba2137', 'sebastian@seba.com', '2021-05-08 11:19:39'),
-(3, 'pawulon69', 'papaj@interia.pl', '2021-05-03 10:14:38'),
-(4, 'antaresque-', 'antaresque@gmail.com', '2021-05-01 21:37:00'),
-(5, 'Rolsig', 'dante.rydzyk@gmail.com', '2021-05-01 21:37:00');
+(3, 'pawel69', 'papaj@interia.pl', '2021-05-03 10:14:38'),
+(4, 'antro', 'antaresque@gmail.com', '2021-05-01 21:37:00'),
+(5, 'ralmajster', 'dante.rydzyk@gmail.com', '2021-05-01 21:37:00');
 
 --
 -- Indeksy dla zrzutów tabel
