@@ -35,11 +35,11 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Zrzut danych tabeli `comments`
 --
 
-INSERT INTO `comments` (`id`, `userid`, `comment`, `date`, `upvotes`, `downvotes`, `imgid`, `crdate`) VALUES
-(1, 4, 'komentarz 1', '2021-05-02', 2137, 69, 4, '2021-05-02 21:37:37'),
-(2, 2, 'komentarz 2', '2021-05-03', 69, 420, 4, '2021-05-03 00:00:00'),
-(3, 5, 'komentarz 3', '2021-05-10', 2137, 1, 3, '2021-05-10 00:00:00'),
-(4, 5, 'komentarz 4', '2021-05-05', 69, 3, 7, '2021-05-05 21:37:00');
+INSERT INTO `comments` (`id`, `userid`, `comment`, `date`, `upvotes`, `imgid`, `crdate`) VALUES
+(1, 4, 'komentarz 1', '2021-05-02', 2137, 69, '2021-05-02 21:37:37'),
+(2, 2, 'komentarz 2', '2021-05-03', 69, 420, '2021-05-03 00:00:00'),
+(3, 5, 'komentarz 3', '2021-05-10', 2137, 1, '2021-05-10 00:00:00'),
+(4, 5, 'komentarz 4', '2021-05-05', 69, 3, '2021-05-05 21:37:00');
 
 -- --------------------------------------------------------
 
