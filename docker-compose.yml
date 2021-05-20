@@ -79,6 +79,8 @@ services:
     networks:
       - iz_auth
       - iz_api
+    ports:
+      - "3100:3100"
     environment: 
       NODE_ENV: production
     depends_on: 

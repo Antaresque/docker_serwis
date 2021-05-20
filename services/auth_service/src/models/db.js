@@ -27,13 +27,11 @@ async function init() {
         dialect: 'mysql',
         pool: { max: 5, min: 0, idle: 10000 }
     });
-
+    
     module.exports.sequelize = sequelize;
-    module.exports.Image = require('./images')(sequelize);
-    module.exports.Comment = require('./comments')(sequelize);
-    module.exports.User = require('./users')(sequelize);
+    module.exports.Auth = require('./auth')(sequelize);
 
-    return new Promise((res, _) => res());
+    return sequelize.sync();
 }
 
 async function teardown() {
