@@ -2,8 +2,6 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const Auth = require("../models/db").Auth;
 
-const SECRET = process.env.PRIVATE_KEY;
-
 async function createHash(plainPassword){
     const saltRounds = 10;
 
@@ -30,6 +28,7 @@ async function verifyHash(pass, hash){
 
 async function login(req, res){
     const { username, password } = req.body;
+    const SECRET = process.env.PRIVATE_KEY;
 
     if(username && password) {
         const val = await Auth.findOne({ where: { username: username } });
@@ -41,7 +40,7 @@ async function login(req, res){
         if(!valid) {
             return res.sendStatus(401);
         }
-        
+
         const payload = { id: val.id, username: val.username, role: val.role };
         const token = jwt.sign(payload, SECRET, { algorithm: 'RS256' });
         return res.send({ valid: true, token: token });
@@ -53,6 +52,7 @@ async function login(req, res){
 
 async function register(req, res){
     const { username, password } = req.body;
+    const SECRET = process.env.PRIVATE_KEY;
 
     const val = await Auth.findOne({ where: { username: username } });
     if(val !== null){

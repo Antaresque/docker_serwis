@@ -4,6 +4,7 @@ const owner = require('express').Router();
 
 const { getAll, getOne, getComments } = require("./subroutes/images");
 const { login, register } = require("./subroutes/auth");
+const { userAuthValidator } = require('../controllers/authMiddle');
 //const { uploadImage, addComment, setVote, undoVote } = require('./subroutes/imagesuser');
 //const { updateImage, deleteImage, deleteComment } = require('./subroutes/imagesowner');
 
@@ -13,6 +14,10 @@ free.get("/images/:id/comments", getComments);
 
 free.post("/login", login);
 free.post("/register", register);
+
+user.get("/testAuth", userAuthValidator, (req, res) => {
+    res.send({ payload: req.payload });
+});
 
 /*
 // need to be authorized user
