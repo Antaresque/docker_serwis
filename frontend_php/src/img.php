@@ -89,7 +89,9 @@
                 <div class="row user sticky-top">
                     <div class="col-4 user-data rounded-end" align="center">
                         <h3>Nie jesteś zalogowany!</h3>
-                        <button type='button' class='btn btn-light'>Logowanie/Rejestracja</button>
+                        <form action="login.php">
+                            <button type='submit' class='btn btn-light'>Logowanie/Rejestracja</button>
+                        </form>
                         <p></p>
                     </div>
                 </div>
