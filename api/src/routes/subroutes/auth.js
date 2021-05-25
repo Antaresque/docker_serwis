@@ -1,14 +1,12 @@
 const { loginAuth, registerAuth } = require('../../controllers/auth');
-
-// TODO: sensowna obsługa statusów (400, 402)
 async function login(req, res){
     const { user, pass } = req.body;
 
     if(user && pass){
         try {
             let token = await loginAuth(user, pass); 
-            if(token == "Bad Request" || token == "Unauthorized")
-                return res.sendStatus(402);
+            if(token.err)
+                return res.sendStatus(token.status);
 
             res.send({ token: token });
         }
