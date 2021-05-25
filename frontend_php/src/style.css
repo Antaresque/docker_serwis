@@ -1,12 +1,12 @@
 .navek{
     background-color: #181818;
-    color: red;
+    color: white;
 }
 .mid-row{
     background-color: #252525;
     color: white;
     padding:10px;
-    min-height:88.9vh;
+    min-height:89.5vh;
 }
 .foot-row{
     background-color: #181818;
@@ -34,9 +34,13 @@
 }
 .user-data, .user-pfp{
     background-color: #181818;
+    padding:5px;
     padding-bottom:5px;
 }
 .user{
     padding:5px;
     top: 72px;
+}
+.title{
+    color:white;
 }

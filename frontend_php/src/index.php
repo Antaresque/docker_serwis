@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +20,7 @@
         $dataIm = CurlHelper::perform_http_request("GET", "http://api:4000/images");
 
         $data = json_decode($data);
+        $_SESSION["token"] = "";
     ?>  
     <nav class="navbar navek sticky-top">
         <a href="index.php">
@@ -33,7 +37,7 @@
                         <div class='col-10 img-main rounded'>
                             <div class='row img-title'>
                                 <a href="img.php?id=<?= $el->id ?>">
-                                    <h2><?= $el->title ?></h2>
+                                    <h2 class="title"><?= $el->title ?></h2>
                                 </a>
                             </div>
                             <div class='row img-main'>
@@ -55,6 +59,16 @@
                 <?php endforeach; ?>
             </div>
             <div class="col-5 right-col">
+                <?php
+                if($_SESSION["token"] == ""):?>
+                <div class="row user sticky-top">
+                    <div class="col-4 user-data rounded-end" align="center">
+                        <h3>Nie jesteś zalogowany!</h3>
+                        <button type='button' class='btn btn-light'>Logowanie/Rejestracja</button>
+                        <p></p>
+                    </div>
+                </div>
+                <?php else: ?>
                 <div class="row user sticky-top">
                     <div class="col-3 user-pfp rounded-start">
                         <img class="img-fluid" src="ral-min.png">
@@ -66,9 +80,11 @@
                         <p>Obrazków: 69</p>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
         <div class="row foot-row">
+            <p>Made by: Aleksander Ferens & Adam Bytniewski, 2021</p>
         </div>
     </div>
 </body>
