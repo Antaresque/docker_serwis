@@ -34,12 +34,12 @@ async function login(req, res){
     if(username && password) {
         const val = await Auth.findOne({ where: { username: username } });
         if(val === null) {
-            return res.sendStatus(401);
+            return res.status(401).send("Nieprawidłowy login lub hasło");
         }
 
         let valid = await verifyHash(password, val.password);
         if(!valid) {
-            return res.sendStatus(401);
+            return res.status(401).send("Nieprawidłowy login lub hasło");
         }
 
         const payload = { id: val.id, username: val.username, role: val.role };
@@ -48,7 +48,7 @@ async function login(req, res){
         
     }
     else
-        return res.sendStatus(400);    
+        return res.sendStatus(400).send("Brak lub nieprawidłowe dane");;    
 }
 
 async function register(req, res){
@@ -57,7 +57,7 @@ async function register(req, res){
 
     const val = await Auth.findOne({ where: { username: username } });
     if(val !== null)
-        return res.sendStatus(400);
+        return res.sendStatus(400).send("Login zajęty");
     
     const hash = await createHash(password);
     if(hash === null)
@@ -66,8 +66,10 @@ async function register(req, res){
     const newUser = await Auth.create({ username: username, password: hash, role: 'user' });
     const payload = { id: newUser.id, username: newUser.username, role: newUser.role };
 
-    const reply = await axios.post(process.env.DATA_URI + `/register`, { nickname: username, email: email });
-    if(reply.status !== 200){
+    try {
+        const reply = await axios.post(process.env.DATA_URI + `/register`, { nickname: username, email: email });
+    }
+    catch(err){
         await newUser.destroy();
         return res.sendStatus(500);
     }

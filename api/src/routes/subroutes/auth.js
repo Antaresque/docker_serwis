@@ -8,11 +8,11 @@ async function login(req, res) {
             let data = await loginAuth(user, pass); 
             return res.send(data);
         }
-        catch(err) {
-            return res.sendStatus(err);
+        catch(err){
+            return res.status(err.status).send(err.message);
         }
     }
-    else return res.sendStatus(400);
+    else return res.status(400).send("Brak lub nieprawidłowe dane");
 }
 
 async function register(req, res){
@@ -25,10 +25,10 @@ async function register(req, res){
             return res.send(data); 
         }
         catch(err){
-            return res.sendStatus(err);
+            return res.status(err.status).send(err.message);
         }
     }
-    else return res.sendStatus(400);
+    else return res.status(400).send("Brak lub nieprawidłowe dane");
 }
 
 module.exports = {

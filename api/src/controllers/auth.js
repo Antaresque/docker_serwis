@@ -7,10 +7,14 @@ async function login(user, pass){
         return reply.data;
     }
     catch(err){
-        if(err.response) 
-            throw(err.response.status);
+        if(err.response){
+            if(err.response.status == 400) { // złe dane
+                throw({ message: err.response.data, status: err.response.status })
+            }
+            else throw({ message: "", status: err.response.status });
+        } 
         else 
-            throw(500);
+            throw({ message: "", status: 500 });
     }
 
 }
@@ -21,10 +25,14 @@ async function register(user, pass, email){
         return reply.data;
     }
     catch(err){
-        if(err.response) 
-            throw(err.response.status);
+        if(err.response){
+            if(err.response.status == 400) { // złe dane
+                throw({ message: err.response.data, status: err.response.status })
+            }
+            else throw({ message: "", status: err.response.status });
+        } 
         else 
-            throw(500);
+            throw({ message: "", status: 500 });
     }
 }
 
