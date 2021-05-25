@@ -1,5 +1,6 @@
 const { loginAuth, registerAuth } = require('../../controllers/auth');
 async function login(req, res){
+    console.log(req.body);
     const { user, pass } = req.body;
 
     if(user && pass){

@@ -30,8 +30,10 @@ async function init() {
 
     module.exports.sequelize = sequelize;
     MImage = require('./images')(sequelize);
+    MImageView = require('./images_vc')(sequelize);
     MComment = require('./comments')(sequelize);
     MUser = require('./users')(sequelize);
+    MUserView = require('./users_vc')(sequelize);
 
     MImage.hasMany(MUser, {foreignKey: 'userid'});
     MUser.belongsTo(MImage);
@@ -40,10 +42,12 @@ async function init() {
     MComment.belongsTo(MUser);
 
     module.exports.Image = MImage;
+    module.exports.ImageView = MImageView;
     module.exports.Comment = MComment;
     module.exports.User = MUser;
+    module.exports.UserView = MUserView;
 
-    return new Promise((res, _) => res());
+    return sequelize.sync();
 }
 
 async function teardown() {
