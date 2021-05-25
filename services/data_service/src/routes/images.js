@@ -1,11 +1,12 @@
 const models = require("../db");
 const Image = models.Image;
+const ImageView = models.ImageView;
 const Comment = models.Comment;
 const User = models.User;
 
 async function getImageById(req, res) {
     const id = req.params.id;
-    const items = await Image.findByPk(id);
+    const items = await ImageView.findByPk(id);
     res.send(items);
 }
 
@@ -15,12 +16,12 @@ async function getImages(req, res){
     const offset = limit * ( parseInt(req.query.page) - 1 );
 
     const options = { 
-        order: [['crdate', 'DESC']], 
+        order: [['createdAt', 'DESC']], 
         limit: limit, 
         offset: offset
     }
 
-    const items = await Image.findAll(options);
+    const items = await ImageView.findAll(options);
     res.send(items);
 }
 
