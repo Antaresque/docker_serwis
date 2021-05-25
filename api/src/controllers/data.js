@@ -28,9 +28,18 @@ async function getImageComments(id) {
     return reply.data;
 }
 
+async function register(user, email){
+    const reply = await axios.post(DATA_URI + `/register`, { nickname: user, email: email });
+    if(reply.status !== 200)
+        throw(reply.statusText);
+
+    return reply.data;
+}
+
 
 module.exports = {
     getImagesHomepage, 
     getImagesById, 
-    getImageComments
+    getImageComments,
+    registerData: register
 }

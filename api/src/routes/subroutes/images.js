@@ -1,5 +1,3 @@
-const router = require('express').Router();
-
 const { getImagesHomepage, getImagesById, getImageComments } = require('../../controllers/data');
 const { isEmpty } = require('../../helper');
 
@@ -86,7 +84,7 @@ async function getComments (req, res) {
 }
 
 /**
- * get file (probably not) (?) (not sure if needed)
+ * get file (probably not) (?) (not sure if needed) (actually not needed)
  * @method GET
  * @param name - name of the image
  * @route /images/file/:name

@@ -7,14 +7,8 @@ module.exports = (sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        nickname: DataTypes.TEXT,
-        email: DataTypes.TEXT,
-        crdate: {
-            type: DataTypes.DATE,
-            defaultValue: Date.now() 
-        }
-    },
-    {
-        timestamps: false
-    });
+        username: DataTypes.TEXT,
+        password: DataTypes.TEXT,
+        role: DataTypes.TEXT,
+    })
 };

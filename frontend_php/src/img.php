@@ -99,7 +99,7 @@
                         <img class="img-fluid" src="ral-min.png">
                     </div>
                     <div class="col-4 user-data rounded-end">
-                        <h2>Rolsig</h2>
+                        <h2>user</h2>
                         <p>Dołączył: 21.03.07</p>
                         <p>Komentarzy: 2137</p>
                         <p>Obrazków: 69</p>
