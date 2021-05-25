@@ -16,10 +16,9 @@
     <?php
         require_once 'curl_helper.php';
 
-        $data = CurlHelper::perform_http_request("GET", "http://api:4000/images");
-        $dataIm = CurlHelper::perform_http_request("GET", "http://api:4000/images");
+        $data = CurlHelper::perform_http_request("GET", "http://api:4000/images")->data;
+        $dataIm = CurlHelper::perform_http_request("GET", "http://api:4000/images")->data;
 
-        $data = json_decode($data);
     ?>  
     <nav class="navbar navek sticky-top">
         <a href="index.php">

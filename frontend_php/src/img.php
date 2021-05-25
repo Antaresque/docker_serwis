@@ -16,10 +16,8 @@
     <?php
         require_once 'curl_helper.php';
         $id = $_GET["id"];
-        $data = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id);
-        $comms = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id."/comments");
-        $data = json_decode($data);
-        $comms = json_decode($comms);
+        $data = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id)->data;
+        $comms = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id."/comments")->data;
         $_SESSION["token"] = "";
     ?>  
     <nav class="navbar navek sticky-top">
