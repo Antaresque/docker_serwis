@@ -20,7 +20,6 @@
         $dataIm = CurlHelper::perform_http_request("GET", "http://api:4000/images");
 
         $data = json_decode($data);
-        $_SESSION["token"] = "";
     ?>  
     <nav class="navbar navek sticky-top">
         <a href="index.php">
@@ -49,7 +48,7 @@
                             <button type='button' class='btn btn-lg btn-danger'>
                                 <i class='fa fa-heart'></i>
                             </button>
-                            <p><?= $el->upvotes ?></p>
+                            <p><?= $el->votes ?></p>
                             <button type='button' class='btn btn-lg btn-light'>
                                 <i class='fa fa-comments-o'></i>
                             </button>
@@ -60,7 +59,7 @@
             </div>
             <div class="col-5 right-col">
                 <?php
-                if($_SESSION["token"] == ""):?>
+                if($_SESSION["token"]):?>
                 <div class="row user sticky-top">
                     <div class="col-4 user-data rounded-end" align="center">
                         <h3>Nie jesteś zalogowany!</h3>
@@ -80,6 +79,7 @@
                         <p>Dołączył: 21.03.07</p>
                         <p>Komentarzy: 2137</p>
                         <p>Obrazków: 69</p>
+                        <button type='button' class='btn btn-danger'>Wyloguj</button>
                     </div>
                 </div>
                 <?php endif; ?>

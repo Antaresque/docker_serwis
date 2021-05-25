@@ -73,7 +73,7 @@
                                         <button type='button' class='btn btn-danger'>
                                             <i class='fa fa-heart'></i>
                                         </button>
-                                        <p><?= $el->upvotes ?></p>
+                                        <p><?= $el->votes ?></p>
                                     </div>
                                 </div>
                                 <p></p>
