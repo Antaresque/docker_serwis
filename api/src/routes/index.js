@@ -2,7 +2,7 @@ const free = require('express').Router();
 const user = require('express').Router();
 const owner = require('express').Router();
 
-const { getAll, getOne, getComments } = require("./subroutes/images");
+const { getAll, getOne, getComments, setVote, undoVote } = require("./subroutes/images");
 const { login, register } = require("./subroutes/auth");
 const { userAuthValidator } = require('../controllers/authMiddle');
 //const { uploadImage, addComment, setVote, undoVote } = require('./subroutes/imagesuser');
@@ -19,12 +19,13 @@ user.get("/testAuth", userAuthValidator, (req, res) => {
     res.send({ payload: req.payload });
 });
 
+user.post('/images/:id/votes', setVote);
+user.delete('/images/:id/votes', undoVote);
+
 /*
 // need to be authorized user
 user.post('/images', uploadImage);
 user.post('/images/:id/comments', addComment);
-user.post('/images/:id/votes', setVote);
-user.delete('/images/:id/votes', undoVote);
 
 // need to be owner or admin
 owner.put('/images/:id', updateImage);
