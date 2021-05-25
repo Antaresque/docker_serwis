@@ -1,6 +1,5 @@
 const { loginAuth, registerAuth } = require('../../controllers/auth');
-async function login(req, res){
-    console.log(req.body);
+async function login(req, res) {
     const { user, pass } = req.body;
 
     if(user && pass){
@@ -13,12 +12,10 @@ async function login(req, res){
         }
         catch(err){
             console.log(err.message);
-            res.sendStatus(500);
+            return res.sendStatus(500);
         }
     }
-    else {
-        res.sendStatus(400);
-    }
+    else return res.sendStatus(400);
 }
 
 async function register(req, res){
@@ -28,20 +25,17 @@ async function register(req, res){
     if(user && pass && email){
         try {
             let token = await registerAuth(user, pass, email);
-            if(token !== undefined)
-                res.send(token);
-            else
-                res.sendStatus(500);
-            
+            if(token.err)
+                return res.sendStatus(token.status);
+
+            return res.send({ token: token }); 
         }
         catch(err){
             console.log(err.message);
-            res.sendStatus(500);
+            return res.sendStatus(500);
         }
     }
-    else {
-        res.sendStatus(400);
-    }
+    else return res.sendStatus(400);
 }
 
 module.exports = {

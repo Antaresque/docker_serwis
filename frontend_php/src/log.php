@@ -7,6 +7,6 @@
                 "pass" => $pus);
     echo http_build_query($arr) . "\n";
 
-    $data = CurlHelper::perform_http_request("POST", "http://api:4000/login/", $arr);
+    $data = CurlHelper::perform_http_request("POST", "http://api:4000/login/", http_build_query($arr));
     echo $data;
 ?>
