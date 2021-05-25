@@ -9,8 +9,8 @@ async function login(user, pass){
     return reply.data;
 }
 
-async function register(user, pass){
-    const reply = await axios.post(AUTH_URI + `/register`, { username: user, password: pass });
+async function register(user, pass, email){
+    const reply = await axios.post(AUTH_URI + `/register`, { username: user, password: pass, email: email });
     if(reply.status !== 200)
         throw(reply.statusText);
 

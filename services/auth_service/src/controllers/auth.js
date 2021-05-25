@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 const Auth = require("../models/db").Auth;
 
 async function createHash(plainPassword){
@@ -51,25 +52,28 @@ async function login(req, res){
 }
 
 async function register(req, res){
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
     const SECRET = process.env.PRIVATE_KEY;
 
     const val = await Auth.findOne({ where: { username: username } });
-    if(val !== null){
-        res.sendStatus(400);
-        return;
-    }
+    if(val !== null)
+        return res.sendStatus(400);
     
     const hash = await createHash(password);
-    if(hash === null){
-        res.sendStatus(500);
-        return; 
-    }
-
+    if(hash === null)
+        return res.sendStatus(500);
+    
     const newUser = await Auth.create({ username: username, password: hash, role: 'user' });
     const payload = { id: newUser.id, username: newUser.username, role: newUser.role };
+
+    const reply = await axios.post(process.env.DATA_URI + `/register`, { nickname: username, email: email });
+    if(reply.status !== 200){
+        await newUser.destroy();
+        return res.sendStatus(500);
+    }
+
     const token = jwt.sign(payload, SECRET, { algorithm: 'RS256' });
-    res.status(200).send({ valid: true, token: token }); 
+    return res.status(200).send({ valid: true, token: token }); 
 }
 
 module.exports = {
