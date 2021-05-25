@@ -4,13 +4,10 @@ async function login(req, res) {
 
     if(user && pass){
         try {
-            let token = await loginAuth(user, pass); 
-            if(token.err)
-                return res.sendStatus(token.status);
-
-            res.send({ token: token });
+            let data = await loginAuth(user, pass); 
+            return res.send(data);
         }
-        catch(err){
+        catch(err) {
             console.log(err.message);
             return res.sendStatus(500);
         }
@@ -24,11 +21,8 @@ async function register(req, res){
 
     if(user && pass && email){
         try {
-            let token = await registerAuth(user, pass, email);
-            if(token.err)
-                return res.sendStatus(token.status);
-
-            return res.send({ token: token }); 
+            let data = await registerAuth(user, pass, email);
+            return res.send(data); 
         }
         catch(err){
             console.log(err.message);

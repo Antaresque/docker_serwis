@@ -44,7 +44,7 @@ async function login(req, res){
 
         const payload = { id: val.id, username: val.username, role: val.role };
         const token = jwt.sign(payload, SECRET, { algorithm: 'RS256' });
-        return res.send({ valid: true, token: token });
+        return res.send({ token: token });
         
     }
     else
@@ -73,7 +73,7 @@ async function register(req, res){
     }
 
     const token = jwt.sign(payload, SECRET, { algorithm: 'RS256' });
-    return res.status(200).send({ valid: true, token: token }); 
+    return res.status(200).send({ token: token }); 
 }
 
 module.exports = {
