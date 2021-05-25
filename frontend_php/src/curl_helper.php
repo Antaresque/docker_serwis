@@ -35,10 +35,11 @@ class CurlHelper {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $result = curl_exec($curl);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         
         curl_close($curl);
 
-        return $result;
+        return array("status" => $httpcode, "data" => json_decode($result));
     }
 
 }
