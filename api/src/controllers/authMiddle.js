@@ -43,6 +43,5 @@ async function getPayload(req){
 
 module.exports = {
     userAuthValidator: oAV,
-    ownerAuthValidator: oAV,
     getPayload
 }

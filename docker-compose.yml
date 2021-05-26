@@ -68,6 +68,7 @@ services:
     volumes:
       - ./volumes/iz-mysql-auth:/var/lib/mysql:rw
       - ./volumes/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ./volumes/iz-mysql-config/init-auth.sql:/docker-entrypoint-initdb.d/init.sql:ro
     environment: 
       MYSQL_ROOT_PASSWORD: 2}d5^1[A6f1%
       MYSQL_DATABASE: iz_auth

@@ -67,7 +67,7 @@ async function register(req, res){
     const payload = { id: newUser.id, username: newUser.username, role: newUser.role };
 
     try {
-        const reply = await axios.post(process.env.DATA_URI + `/register`, { nickname: username, email: email });
+        const reply = await axios.post(process.env.DATA_URI + `/users`, { nickname: username, email: email });
     }
     catch(err){
         await newUser.destroy();

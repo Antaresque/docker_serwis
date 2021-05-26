@@ -2,12 +2,22 @@ const free = require('express').Router();
 const user = require('express').Router();
 const owner = require('express').Router();
 
-const { getAll, getOne, getComments, setVote, undoVote } = require("./subroutes/images");
-const { login, register } = require("./subroutes/auth");
 const { userAuthValidator } = require('../controllers/authMiddle');
-//const { uploadImage, addComment, setVote, undoVote } = require('./subroutes/imagesuser');
-//const { updateImage, deleteImage, deleteComment } = require('./subroutes/imagesowner');
 
+const { getAll, getOne, getComments } = require("./free/images");
+const { login, register } = require("./free/auth");
+const { getUser } = require('./free/users');
+
+const { addImage, addComment } = require('./user/images');
+const { setImageVote, undoImageVote, setCommentVote, undoCommentVote } = require('./user/votes'); 
+const { uploadImage, uploadAvatar } = require('./user/upload');
+
+const { updateImage, deleteImage } = require('./owner/images');
+const { updateComment, deleteComment } = require('./owner/comments');
+const { updateUser, deleteUser } = require('./owner/users');
+
+// --- FREE ROUTES ---
+ 
 free.get("/images", getAll);
 free.get("/images/:id", getOne);
 free.get("/images/:id/comments", getComments);
@@ -15,24 +25,35 @@ free.get("/images/:id/comments", getComments);
 free.post("/login", login);
 free.post("/register", register);
 
+free.get('/users/:id', getUser);
+
+// --- USER ROUTES ---
+
 user.get("/testAuth", userAuthValidator, (req, res) => {
     res.send({ payload: req.payload });
 });
 
-user.post('/images/:id/votes', setVote);
-user.delete('/images/:id/votes', undoVote);
+user.post('/images/:id/votes', userAuthValidator, setImageVote);
+user.delete('/images/:id/votes', userAuthValidator, undoImageVote);
+user.post('/comments/:id/votes', userAuthValidator, setCommentVote);
+user.delete('/comments/:id/votes', userAuthValidator, undoCommentVote);
 
-/*
-// need to be authorized user
-user.post('/images', uploadImage);
-user.post('/images/:id/comments', addComment);
+user.post('/images', userAuthValidator, addImage);
+user.post('/images/:id/comments', userAuthValidator, addComment);
+
+//user.post('/images/upload', userAuthValidator, uploadImage);
+//user.post('/users/upload', userAuthValidator, uploadAvatar);
+
+// --- OWNER ROUTES ---
 
 // need to be owner or admin
-owner.put('/images/:id', updateImage);
-owner.delete('/images/:id', deleteImage);
-owner.delete('/images/:id/comments', deleteComment);
+owner.put('/images/:id', userAuthValidator, updateImage);
+owner.delete('/images/:id', userAuthValidator, deleteImage);
+owner.put('/images/:id/comments', userAuthValidator, updateComment);
+owner.delete('/images/:id/comments', userAuthValidator, deleteComment);
+owner.put('/users/:id', userAuthValidator, updateUser);
+owner.delete('/users/:id', userAuthValidator, deleteUser);
 
-*/
 
 module.exports = {
     freeRoutes: free,

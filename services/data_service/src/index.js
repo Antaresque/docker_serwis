@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 
 const app = express();
-const db = require('./db');
+const db = require('./models');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

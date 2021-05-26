@@ -7,13 +7,9 @@ const app = express();
 
 // routes
 const { freeRoutes, userRoutes, ownerRoutes } = require('./routes');
-const { userAuthValidator, ownerAuthValidator } = require('./controllers/authMiddle');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-userRoutes.use(userAuthValidator);
-ownerRoutes.use(ownerAuthValidator);
 
 app.use('/', freeRoutes);
 app.use('/', userRoutes);

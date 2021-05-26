@@ -98,6 +98,16 @@ CREATE TABLE `users_vc` (
 ,`comments` bigint(21)
 );
 
+CREATE TABLE `comments_vc` (
+  `id` int(11),
+  `imgid` int(11),
+  `userid` int(11),
+  `comment` text,
+  `createdAt` timestamp,
+  `updatedAt` timestamp,
+  `votes` bigint(21)
+);
+
 -- --------------------------------------------------------
 
 --
@@ -170,7 +180,19 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 
 DROP TABLE IF EXISTS `users_vc`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `users_vc`  AS SELECT `users`.`id` AS `id`, `users`.`nickname` AS `nickname`, `users`.`email` AS `email`, `users`.`createdAt` AS `createdAt`, `users`.`updatedAt` AS `updatedAt`, count(`images`.`userid`) AS `images`, count(`comments`.`userid`) AS `comments` FROM ((`users` left join `images` on(`users`.`id` = `images`.`userid`)) left join `comments` on(`users`.`id` = `comments`.`userid`)) GROUP BY `users`.`id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `users_vc`  
+AS SELECT `users`.`id` AS `id`, `users`.`nickname` AS `nickname`, `users`.`email` AS `email`, 
+`users`.`createdAt` AS `createdAt`, `users`.`updatedAt` AS `updatedAt`, count(`images`.`userid`) AS `images`, 
+count(`comments`.`userid`) AS `comments` FROM ((`users` left join `images` on(`users`.`id` = `images`.`userid`)) 
+left join `comments` on(`users`.`id` = `comments`.`userid`)) GROUP BY `users`.`id` ;
+
+DROP TABLE IF EXISTS `comments_vc`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `comments_vc`
+AS SELECT `comments`.`id` AS `id`, `comments`.`userid` AS `userid`, `comments`.`imgid` AS `imgid`,
+`comments`.`comment` AS `comment`, `comments`.`createdAt` as `createdAt`, `comments`.`updatedAt` as `updatedAt`,
+count(`votes_comments`.`commentid`) AS `votes` FROM (`comments` left join `votes_comments` on(`comments`.`id` = `votes_comments`.`commentid`))
+GROUP BY `comments`.`id`;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -253,7 +275,6 @@ ALTER TABLE `images`
 ALTER TABLE `votes`
   ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`imgid`) REFERENCES `images` (`id`),
   ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`);
-COMMIT;
 
 ALTER TABLE `votes_comments`
   ADD CONSTRAINT `votes_comments_ibfk_1` FOREIGN KEY (`commentid`) REFERENCES `comments` (`id`),

@@ -32,6 +32,7 @@ async function init() {
     MImage = require('./images')(sequelize);
     MImageView = require('./images_vc')(sequelize);
     MComment = require('./comments')(sequelize);
+    MCommentView = require('./comments_vc')(sequelize);
     MUser = require('./users')(sequelize);
     MUserView = require('./users_vc')(sequelize);
 
@@ -41,9 +42,13 @@ async function init() {
     MUser.hasMany(MComment, {foreignKey: 'userid'});
     MComment.belongsTo(MUser);
 
+    MUser.hasMany(MCommentView, {foreignKey: 'userid'});
+    MCommentView.belongsTo(MUser);
+
     module.exports.Image = MImage;
     module.exports.ImageView = MImageView;
     module.exports.Comment = MComment;
+    module.exports.CommentView = MCommentView;
     module.exports.User = MUser;
     module.exports.UserView = MUserView;
 

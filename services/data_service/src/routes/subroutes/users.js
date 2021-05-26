@@ -1,5 +1,9 @@
-const models = require("../db");
+const models = require("../../models");
 const User = models.User;
+
+async function getUserById(req, res) {
+    return res.sendStatus(404);
+}
 
 async function registerUser(req, res) {
     const { nickname, email } = req.body;
@@ -7,7 +11,7 @@ async function registerUser(req, res) {
     if(nickname && email){
         const status = await User.create({ nickname: nickname, email: email });
         if(status !== null)
-            return res.sendStatus(200);
+            return res.send(status);
         else
             return res.sendStatus(500);
     }
@@ -16,6 +20,14 @@ async function registerUser(req, res) {
     
 }
 
+async function changeUser(req, res){
+    return res.sendStatus(404);
+}
+
+async function removeUser(req, res){
+    return res.sendStatus(404);
+}
+
 module.exports = {
-    registerUser
+    getUserById, registerUser, changeUser, removeUser
 }

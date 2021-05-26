@@ -106,26 +106,8 @@ async function getComments (req, res) {
     }
 });*/
 
-/**
- * set vote to true
- * @method PUT
- * @route /images/:id/vote
- */
-async function setVote (req, res) { 
-
-}
-
-/**
- * set vote to false
- * @method PUT
- * @route /images/:id/vote
- */
-async function undoVote (req, res) { }
-
 module.exports = {
     getOne,
     getAll,
-    getComments,
-    setVote,
-    undoVote
+    getComments
 }
