@@ -44,7 +44,7 @@
                         <button type='button' class='btn btn-lg btn-danger'>
                             <i class='fa fa-heart'></i>
                         </button>
-                        <p><?= $data->upvotes ?></p>
+                        <p><?= $data->votes ?></p>
                         <button type='button' class='btn btn-lg btn-light'>
                             <i class='fa fa-comments-o'></i>
                         </button>
