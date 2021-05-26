@@ -35,6 +35,8 @@ async function init() {
     MCommentView = require('./comments_vc')(sequelize);
     MUser = require('./users')(sequelize);
     MUserView = require('./users_vc')(sequelize);
+    MVoteComment = require('./votes_comments')(sequelize);
+    MVoteImage = require('./votes')(sequelize);
 
     MImage.hasMany(MUser, {foreignKey: 'userid'});
     MUser.belongsTo(MImage);
@@ -51,6 +53,9 @@ async function init() {
     module.exports.CommentView = MCommentView;
     module.exports.User = MUser;
     module.exports.UserView = MUserView;
+
+    module.exports.VoteImage = MVoteImage;
+    module.exports.VoteComment = MVoteComment;
 
     return sequelize.sync();
 }
