@@ -25,15 +25,85 @@ async function getComments(req, res){
 }
 
 async function addComment(req, res){
-    return res.sendStatus(404);
+    const { id } = req.params.id;
+    if(!id || id === undefined)
+        return res.sendStatus(400);
+
+    const { userid, comment } = req.body;
+
+    if(userid && comment){
+        const newObject = {
+            userid: userid,
+            imgid: id,
+            comment: comment
+        }
+
+        try {
+            const record = await Comment.create(newObject);
+            if(!record)
+                throw("No records created");
+
+            res.send(record);
+        }
+        catch(err){
+            console.log(err.message);
+            res.sendStatus(500);
+        }
+    
+        
+    }
+    else return res.sendStatus(400);
 }
 
 async function changeComment(req, res){
-    return res.sendStatus(404);
+    const { cid } = req.params;
+    if(!cid || cid === undefined)
+        return res.sendStatus(400);
+
+    const { comment } = req.body;
+    if(comment) {
+        const newObj = { comment: comment };
+
+        try {
+            const records = await Comment.update(newObj, { where: { id: cid } });
+            if(!records)
+                throw("No updated record");
+            
+            const updatedImage = await Comment.findByPk(cid);
+            if(!updatedImage)
+                throw("No updated record");
+    
+            res.send(updatedImage);
+        }
+        catch(err){
+            console.log(err.message);
+            res.sendStatus(500); 
+        }
+        
+    }
+    else return res.sendStatus(400);
 }
 
 async function deleteComment(req, res){
-    return res.sendStatus(404);
+    const { cid } = req.params;
+    if(!cid)
+        return res.sendStatus(400);
+
+    try {
+        const destroyedImage = await Comment.findByPk(cid);
+        if(!destroyedImage)
+            return res.status(400).send("No comment with this ID");
+
+        const records = await Comment.destroy({ where: { id: cid } });
+        if(!records)
+            throw("No records removed");
+
+        res.send(destroyedImage);
+    }
+    catch(err) {
+        console.log(err.message);
+        res.sendStatus(500);
+    }
 }
 
 module.exports = {
