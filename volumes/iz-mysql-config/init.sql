@@ -140,6 +140,7 @@ INSERT INTO `users` (`id`, `nickname`, `email`, `createdAt`, `updatedAt`) VALUES
 --
 
 CREATE TABLE `votes` (
+  `id` int(11) NOT NULL,
   `imgid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -150,15 +151,16 @@ CREATE TABLE `votes` (
 -- Zrzut danych tabeli `votes`
 --
 
-INSERT INTO `votes` (`imgid`, `userid`, `createdAt`, `updatedAt`) VALUES
-(1, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
-(2, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
-(5, 2, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
-(5, 1, '2021-05-05 20:18:12', '2021-05-05 20:18:12');
+INSERT INTO `votes` (`id`, `imgid`, `userid`, `createdAt`, `updatedAt`) VALUES
+(1, 1, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
+(2, 2, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
+(3, 5, 2, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
+(4, 5, 1, '2021-05-05 20:18:12', '2021-05-05 20:18:12');
 
 -- --------------------------------------------------------
 
 CREATE TABLE `votes_comments` (
+  `id` int(11) NOT NULL,
   `commentid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -166,10 +168,10 @@ CREATE TABLE `votes_comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 INSERT INTO `votes_comments` (`commentid`, `userid`, `createdAt`, `updatedAt`) VALUES
-(1, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
-(2, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
-(3, 2, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
-(3, 1, '2021-05-05 20:18:12', '2021-05-05 20:18:12');
+(1, 1, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
+(2, 2, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
+(3, 3, 2, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
+(4, 3, 1, '2021-05-05 20:18:12', '2021-05-05 20:18:12');
 
 --
 -- Struktura widoku `images_vc`
@@ -252,6 +254,10 @@ ALTER TABLE `images`
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+ALTER TABLE `votes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `votes_comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Ograniczenia dla zrzutów tabel
 --
