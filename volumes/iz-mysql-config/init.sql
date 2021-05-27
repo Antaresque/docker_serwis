@@ -167,7 +167,7 @@ CREATE TABLE `votes_comments` (
   `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
-INSERT INTO `votes_comments` (`commentid`, `userid`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `votes_comments` (`id`, `commentid`, `userid`, `createdAt`, `updatedAt`) VALUES
 (1, 1, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
 (2, 2, 4, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
 (3, 3, 2, '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
@@ -225,10 +225,12 @@ ALTER TABLE `users`
 -- Indeksy dla tabeli `votes`
 --
 ALTER TABLE `votes`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `imgid` (`imgid`),
   ADD KEY `userid` (`userid`);
 
 ALTER TABLE `votes_comments`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `commentid` (`commentid`),
   ADD KEY `userid` (`userid`);
 
