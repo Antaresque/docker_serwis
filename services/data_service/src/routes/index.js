@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { getImageById, getImages, 
         addImage, changeImage, deleteImage } = require('./subroutes/images');
-const { getComments, addComment, changeComment, deleteComment } = require('./subroutes/comments')
+const { getComments, addComment, getCommentById, changeComment, deleteComment } = require('./subroutes/comments')
 const { addImageVote, removeImageVote, addCommentVote, removeCommentVote } = require('./subroutes/votes');
 const { getUserById, getUserFullById, registerUser, changeUser, removeUser } = require('./subroutes/users');
 
@@ -15,6 +15,7 @@ router.delete('/images/:id', deleteImage);
 
 router.get('/images/:id/comments', getComments);
 router.post('/images/:id/comments', addComment);
+router.get('/comments/:id', getCommentById);
 router.put('/comments/:id', changeComment);
 router.delete('/comments/:id', deleteComment);
 

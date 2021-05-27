@@ -24,6 +24,27 @@ async function getComments(req, res){
     }
 }
 
+async function getCommentById(req, res){
+    const id = req.params.id;
+
+    const options = {
+        where: { id: id },
+        include: [{
+            model: User,
+            attributes: ['nickname']
+        }]
+    }
+    
+    try {
+        const items = await CommentView.findOne(options);
+        res.send(items);
+    }
+    catch(err) {
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
+
 async function addComment(req, res){
     const { id } = req.params.id;
     if(!id || id === undefined)
@@ -107,5 +128,5 @@ async function deleteComment(req, res){
 }
 
 module.exports = {
-    getComments, addComment, changeComment, deleteComment
+    getComments, getCommentById, addComment, changeComment, deleteComment
 }
