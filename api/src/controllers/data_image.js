@@ -36,12 +36,20 @@ async function create(id, title, description, filename){
     catch(err) { handleErrors(err) }
 }
 
-async function edit(obj) {
-
+async function edit(id, obj) {
+    try {
+        const reply = await axios.put(DATA_URI + `/images/${id}`, obj);
+        return reply.data;
+    }
+    catch(err) { handleErrors(err) }
 }
 
 async function remove(id) {
-
+    try {
+        const reply = await axios.delete(DATA_URI + `/images/${id}`);
+        return reply.data;
+    }
+    catch(err) { handleErrors(err) }
 }
 
 module.exports = {
