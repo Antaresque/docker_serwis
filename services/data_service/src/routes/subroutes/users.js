@@ -8,6 +8,24 @@ async function getUserById(req, res) {
         return res.sendStatus(400);
 
     try {
+        const userObj = await UserView.findByPk(id, {attributes: ['id', 'nickname', 'images', 'comments', 'createdAt']});
+        if(!userObj)
+            return res.sendStatus(400).send("No user by this ID");
+
+        res.send(userObj);
+    }
+    catch(err){
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
+
+async function getUserFullById(req, res){
+    const { id } = req.params;
+    if(!id)
+        return res.sendStatus(400);
+
+    try {
         const userObj = await UserView.findByPk(id);
         if(!userObj)
             return res.sendStatus(400).send("No user by this ID");

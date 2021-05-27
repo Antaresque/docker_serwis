@@ -4,7 +4,7 @@ const { getImageById, getImages,
         addImage, changeImage, deleteImage } = require('./subroutes/images');
 const { getComments, addComment, changeComment, deleteComment } = require('./subroutes/comments')
 const { addImageVote, removeImageVote, addCommentVote, removeCommentVote } = require('./subroutes/votes');
-const { getUserById, registerUser, changeUser, removeUser } = require('./subroutes/users');
+const { getUserById, getUserFullById, registerUser, changeUser, removeUser } = require('./subroutes/users');
 
 router.get('/images', getImages);
 
@@ -25,6 +25,7 @@ router.post('/comments/:id/votes', addCommentVote);
 router.delete('/comments/:id/votes', removeCommentVote);
 
 router.get('/users/:id', getUserById);
+router.get('/users/:id/full', getUserFullById);
 router.post('/users', registerUser);
 router.put('/users/:id', changeUser);
 router.delete('/users/:id', removeUser);
