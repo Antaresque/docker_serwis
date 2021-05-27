@@ -7,13 +7,17 @@ async function deleteUser(req, res){
     return res.sendStatus(404);
 }
 
+// TODO: walidacja tokenu
 async function getUserFull(req, res){
-    if(!parseInt(req.params.id)){ 
-        res.sendStatus(400);
-        return;
-    }
+    const { id } = req.payload;
 
-    const id = parseInt(req.params.id);
+    if(!parseInt(req.params.id))
+        return res.sendStatus(400);
+
+    const reqId = parseInt(req.params.id);
+
+    if(reqId != id)
+        return res.sendStatus(401);
 
     try {
         const data = await User.getUserFull(id);

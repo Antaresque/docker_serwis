@@ -22,7 +22,7 @@ async function getById(id){
 
 async function getFull(id){
     try{
-        const reply = await axios.get(DATA_URI + `/users/${id}`);
+        const reply = await axios.get(DATA_URI + `/users/${id}/full`);
         return reply.data;
     }
     catch(err) { handleErrors(err) }
