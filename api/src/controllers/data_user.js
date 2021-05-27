@@ -28,15 +28,16 @@ async function getFull(id){
     catch(err) { handleErrors(err) }
 }
 
-async function edit(obj) {
-
-}
-
-async function remove(id) {
+async function edit(id, obj) {
+    try {
+        const reply = await axios.put(DATA_URI + `/users/${id}`, obj);
+        return reply.data;
+    }
+    catch(err) { handleErrors(err) }
 }
 
 module.exports = {
     register,
     getById, getFull,
-    edit, remove
+    edit
 }

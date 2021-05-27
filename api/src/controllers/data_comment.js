@@ -4,20 +4,38 @@ const DATA_URI = process.env.DATA_SERVICE_URI;
 const { handleErrors } = require('../helper');
 
 // --------------- COMMENTS --------------------
-async function create(userid, comment){
+async function getById(id){
     try {
-       
+        const reply = await axios.get(DATA_URI + `/comments/${id}`);
+        return reply.data;
     }
     catch(err) { handleErrors(err) }
 }
 
-async function edit(obj) {
+async function create(imgid, userid, comment){
+    try {
+        const reply = await axios.post(DATA_URI + `/images/${imgid}/comments`, { userid: userid, comment: comment });
+        return reply.data;
+    }
+    catch(err) { handleErrors(err) }
+}
 
+async function edit(id, obj) {
+    try {
+        const reply = await axios.put(DATA_URI + `/comments/${id}`, obj);
+        return reply.data;
+    }
+    catch(err) { handleErrors(err) }
 }
 
 async function remove(id) {
+    try {
+        const reply = await axios.delete(DATA_URI + `/comments/${id}`);
+        return reply.data;
+    }
+    catch(err) { handleErrors(err) }
 }
 
 module.exports = {
-    create, edit, remove
+    create, edit, remove, getById
 }

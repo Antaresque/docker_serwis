@@ -18,8 +18,10 @@ async function getUser(req, res){
             res.send(data);
     }
     catch(err){
-        console.error(`${err.config.url}: ${err.message}`);
-        res.sendStatus(500);
+        console.log(err.message);
+        if(res.status)
+            return res.status(err.status).send(err.message);
+        else return res.sendStatus(500);
     }
 }
 

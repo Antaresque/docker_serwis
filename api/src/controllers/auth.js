@@ -1,4 +1,6 @@
 const axios = require('axios');
+const { response } = require('express');
+const { handleErrors } = require('../helper');
 const AUTH_URI = process.env.AUTH_SERVICE_URI;
 
 async function login(user, pass){
@@ -36,7 +38,26 @@ async function register(user, pass, email){
     }
 }
 
+async function changePassword(username, password){
+    try {
+        const reply = await axios.put(AUTH_URI + `/users`, { username: username, password: password });
+        return reply.data;
+    }
+    catch(err){ handleErrors(err) }
+}
+
+async function remove(username, id) {
+    try {
+        const reply = await axios.remove(AUTH_URI + `/users`, { username: username, dataid: id });
+        return reply.data;
+    }
+    catch(err){ handleErrors(err) }
+}
+
+
 module.exports = {
     loginAuth: login, 
     registerAuth: register,
+    changePassword: changePassword,
+    remove
 }
