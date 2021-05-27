@@ -1,3 +1,5 @@
+const Vote = require("../../controllers/data_vote");
+
 async function setImageVote(req, res){
     return res.sendStatus(404);
 }

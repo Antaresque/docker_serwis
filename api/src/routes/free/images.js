@@ -1,4 +1,4 @@
-const { getImagesHomepage, getImagesById, getImageComments } = require('../../controllers/data');
+const Image = require('../../controllers/data_image');
 const { isEmpty } = require('../../helper');
 
 /**
@@ -13,7 +13,7 @@ async function getAll (req, res) {
     const page  = parseInt(req.query.page)  ? req.query.page  : 1;
 
     try {
-        const data = await getImagesHomepage(limit, page);
+        const data = await Image.getHomepage(limit, page);
 
         if(isEmpty(data))
             res.sendStatus(404);
@@ -41,7 +41,7 @@ async function getOne (req, res) {
     const id = parseInt(req.params.id);
 
     try {
-        const data = await getImagesById(id);
+        const data = await Image.getById(id);
 
         if(isEmpty(data))
             res.sendStatus(404);
@@ -49,7 +49,6 @@ async function getOne (req, res) {
             res.send(data);
     }
     catch(err){
-        console.log(err);
         console.error(`${err.config.url}: ${err.message}`);
         res.sendStatus(500);
     }
@@ -70,7 +69,7 @@ async function getComments (req, res) {
     const id = parseInt(req.params.id);
 
     try {
-        const data = await getImageComments(id);
+        const data = await Image.getComments(id);
 
         if(isEmpty(data))
             res.sendStatus(404);

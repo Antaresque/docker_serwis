@@ -1,3 +1,5 @@
+const Comment = require('../../controllers/data_comment');
+
 async function updateComment(req, res){
     return res.sendStatus(404);
 }

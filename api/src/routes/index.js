@@ -14,7 +14,7 @@ const { uploadImage, uploadAvatar } = require('./user/upload');
 
 const { updateImage, deleteImage } = require('./owner/images');
 const { updateComment, deleteComment } = require('./owner/comments');
-const { updateUser, deleteUser } = require('./owner/users');
+const { updateUser, deleteUser, getUserFull } = require('./owner/users');
 
 // --- FREE ROUTES ---
  
@@ -47,6 +47,7 @@ user.post('/images/:id/comments', userAuthValidator, addComment);
 // --- OWNER ROUTES ---
 
 // need to be owner or admin
+owner.get('/users/:id/full', userAuthValidator, getUserFull)
 owner.put('/images/:id', userAuthValidator, updateImage);
 owner.delete('/images/:id', userAuthValidator, deleteImage);
 owner.put('/images/:id/comments', userAuthValidator, updateComment);

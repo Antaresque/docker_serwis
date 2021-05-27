@@ -6,6 +6,16 @@ function isEmpty(arg){
     );
   }
 
+function handleErrors(err){
+  if(err.response) {
+    if(err.response.status == 400) { // złe dane
+        throw({ message: err.response.data, status: err.response.status })
+    }
+  } 
+  else throw({ message: "", status: 500 });
+}
+
 module.exports = {
-    isEmpty
+    isEmpty, 
+    handleErrors
 }
