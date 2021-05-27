@@ -8,7 +8,7 @@ async function login(user, pass){
     }
     catch(err){
         if(err.response){
-            if(err.response.status == 400) { // złe dane
+            if(err.response.status == 400 || err.response.status == 401) { // złe dane
                 throw({ message: err.response.data, status: err.response.status })
             }
             else throw({ message: "", status: err.response.status });
