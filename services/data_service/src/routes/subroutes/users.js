@@ -105,5 +105,5 @@ async function removeUser(req, res){
 }
 
 module.exports = {
-    getUserById, registerUser, changeUser, removeUser
+    getUserById, getUserFullById, registerUser, changeUser, removeUser
 }

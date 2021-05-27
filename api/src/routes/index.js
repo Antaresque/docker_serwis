@@ -41,8 +41,8 @@ user.delete('/comments/:id/votes', userAuthValidator, undoCommentVote);
 user.post('/images', userAuthValidator, addImage);
 user.post('/images/:id/comments', userAuthValidator, addComment);
 
-//user.post('/images/upload', userAuthValidator, uploadImage);
-//user.post('/users/upload', userAuthValidator, uploadAvatar);
+user.post('/images/upload', userAuthValidator, uploadImage);
+user.post('/users/upload', userAuthValidator, uploadAvatar);
 
 // --- OWNER ROUTES ---
 

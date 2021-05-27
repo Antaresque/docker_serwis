@@ -38,5 +38,5 @@ async function remove(id) {
 module.exports = {
     register,
     getById, getFull,
-    cedit, remove
+    edit, remove
 }
