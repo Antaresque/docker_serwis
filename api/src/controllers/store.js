@@ -24,7 +24,7 @@ async function upload(file, type){
 
     try {
         const status = await axios.post(STORE_URI + `/upload/${type}`, fd, config);
-        return status;
+        return status.data.filename;
     }
     catch(err) { handleErrors(err) }
 }

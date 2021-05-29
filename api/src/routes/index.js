@@ -40,10 +40,10 @@ user.delete('/images/:id/votes', userAuthValidator, undoImageVote);
 user.post('/comments/:id/votes', userAuthValidator, setCommentVote);
 user.delete('/comments/:id/votes', userAuthValidator, undoCommentVote);
 
-user.post('/images', userAuthValidator, addImage);
+user.post('/images', userAuthValidator, upload.single('file'), addImage);
 user.post('/images/:id/comments', userAuthValidator, addComment);
 
-user.post('/images/upload', userAuthValidator, upload.single('image'), uploadImage);
+//user.post('/images/upload', userAuthValidator);
 user.post('/users/upload', userAuthValidator, upload.single('avatar'), uploadAvatar);
 
 // --- OWNER ROUTES ---

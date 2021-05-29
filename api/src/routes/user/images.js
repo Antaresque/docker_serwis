@@ -1,19 +1,24 @@
 const Image = require("../../controllers/data_image");
 const Comment = require("../../controllers/data_comment");
+const { upload } = require('../../controllers/store');
 const { isEmpty } = require('../../helper');
 
 async function addImage(req, res){
     const { id: token_user } = req.payload;
-    const { title, description, filename } = req.body;
+    const { title, description } = req.body;
 
     if(!title)
         return res.status(400).send("Brak tytułu obrazka");
     if(!description)
         return res.status(400).send("Brak opisu obrazka");
-    if(!filename)
-        return res.status(400).send("Brak nazwy pliku");
+    if(!req.file)
+        return res.status(400).send("Brak pliku");
 
     try {
+        const filename = await upload(req.file, 'image');
+        if(!filename)
+            return res.sendStatus(500);
+        
         const data = await Image.create(token_user, title, description, filename);
 
         if(isEmpty(data))

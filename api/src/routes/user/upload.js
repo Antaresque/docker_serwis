@@ -2,7 +2,9 @@ const { upload } = require('../../controllers/store');
 const { isEmpty } = require('../../helper');
 
 async function uploadImage(req, res){
-    if(!req.file)
+    // MOVED TO IMAGE.CREATE  
+    /*
+        if(!req.file)
         return res.status(400).send("Invalid file");
 
     try {
@@ -18,7 +20,7 @@ async function uploadImage(req, res){
             return res.status(err.status).send(err.message);
         else return res.sendStatus(500);
     }
-    
+    */ 
 }
 async function uploadAvatar(req, res){
     if(!req.file)
@@ -40,5 +42,5 @@ async function uploadAvatar(req, res){
 }
 
 module.exports = {
-    uploadImage, uploadAvatar
+    uploadAvatar
 }
