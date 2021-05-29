@@ -1,6 +1,8 @@
 const free = require('express').Router();
 const user = require('express').Router();
 const owner = require('express').Router();
+const multer = require('multer');
+const upload = multer();
 
 const { userAuthValidator } = require('../controllers/authMiddle');
 
@@ -41,8 +43,8 @@ user.delete('/comments/:id/votes', userAuthValidator, undoCommentVote);
 user.post('/images', userAuthValidator, addImage);
 user.post('/images/:id/comments', userAuthValidator, addComment);
 
-user.post('/images/upload', userAuthValidator, uploadImage);
-user.post('/users/upload', userAuthValidator, uploadAvatar);
+user.post('/images/upload', userAuthValidator, upload.single('image'), uploadImage);
+user.post('/users/upload', userAuthValidator, upload.single('avatar'), uploadAvatar);
 
 // --- OWNER ROUTES ---
 

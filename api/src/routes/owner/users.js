@@ -1,5 +1,6 @@
 const User = require("../../controllers/data_user");
 const AuthUser = require('../../controllers/auth');
+const { isEmpty } = require('../../helper');
 
 async function updateUser(req, res){
     const { id: token_user, role } = req.payload;
@@ -76,16 +77,16 @@ async function deleteUser(req, res){
 
 async function getUserFull(req, res){
     const { id: token_user, role } = req.payload;
-    const reqId = parseInt(req.params.id);
+    const id = parseInt(req.params.id);
 
-    if(!reqId)
+    if(!id)
         return res.sendStatus(400);
 
-    if(role !== 'admin' && token_user != reqId)
+    if(role !== 'admin' && token_user != id)
         return res.sendStatus(401);
 
     try {
-        const data = await User.getUserFull(id);
+        const data = await User.getFull(id);
 
         if(isEmpty(data))
             res.sendStatus(404);
