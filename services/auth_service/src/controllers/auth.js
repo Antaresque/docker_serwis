@@ -57,7 +57,7 @@ async function register(req, res){
 
     const val = await Auth.findOne({ where: { username: username } });
     if(val !== null)
-        return res.sendStatus(400).send("Login zajęty");
+        return res.status(400).send("Login zajęty");
     
     const hash = await createHash(password);
     if(hash === null)
@@ -78,7 +78,64 @@ async function register(req, res){
     return res.status(200).send({ token: token }); 
 }
 
+async function changePassword(req, res){
+    const { username, password } = req.body;
+
+    if(username && password){
+        try {
+            const record = await Auth.findOne({ where: { username: username } });
+            if(!record)
+                throw("No user in database");
+            
+            const id = record.id;
+
+            const obj = { password: password };
+            const status = await Auth.update(obj, {where : { username: username }})
+
+            if(!status)
+                throw("Error while changing password");
+            return res.sendStatus(200);
+        }
+        catch(err){
+            console.log(err.message);
+            return res.sendStatus(500); 
+        }
+    }
+    else return res.sendStatus(400);
+}
+
+async function remove(req, res){
+    const { dataid, username } = req.body;
+
+    if(dataid && username){
+        try {
+            const record = await Auth.findOne({ where: { username: username } });
+            if(!record)
+                throw("No user in database");
+            
+            const id = record.id;
+
+            const status = await axios.delete(DATA_URI + `/users/${dataid}`, obj);
+            if(!status)
+                throw("Data service responded in invalid way");
+
+            const statusAuth = await record.destroy();
+            if(!statusAuth)
+                throw("Error while removing User");
+
+            return res.sendStatus(200);
+        }
+        catch(err){
+            console.log(err.message);
+            return res.sendStatus(500); 
+        }
+    }
+    else return res.sendStatus(400);
+}
+
 module.exports = {
     login,
-    register
+    register,
+    changePassword,
+    remove
 }
