@@ -8,6 +8,7 @@ module.exports = (sequelize) => {
             primaryKey: true
         },
         nickname: DataTypes.TEXT,
-        email: DataTypes.TEXT
+        email: DataTypes.TEXT,
+        avatar: DataTypes.TEXT
     });
 };

@@ -92,6 +92,7 @@ CREATE TABLE `users_vc` (
 `id` int(11)
 ,`nickname` varchar(50)
 ,`email` varchar(50)
+,`avatar` text,
 ,`createdAt` timestamp
 ,`updatedAt` timestamp
 ,`images` bigint(21)
@@ -118,6 +119,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `nickname` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_polish_ci NOT NULL,
+  `avatar` text COLLATE utf8mb4_polish_ci,
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
@@ -126,12 +128,12 @@ CREATE TABLE `users` (
 -- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `users` (`id`, `nickname`, `email`, `createdAt`, `updatedAt`) VALUES
-(1, 'janusz', 'janusz@test.pl', '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
-(2, 'seba2137', 'sebastian@seba.com', '2021-05-08 11:19:39', '2021-05-08 11:19:39'),
-(3, 'pawel69', 'papaj@interia.pl', '2021-05-03 10:14:38', '2021-05-03 10:14:38'),
-(4, 'antro', 'antaresque@gmail.com', '2021-05-01 21:37:00', '2021-05-01 21:37:00'),
-(5, 'ralmajster', 'dante.rydzyk@gmail.com', '2021-05-01 21:37:00', '2021-05-01 21:37:00');
+INSERT INTO `users` (`id`, `nickname`, `email`, `avatar`, `createdAt`, `updatedAt`) VALUES
+(1, 'janusz', 'janusz@test.pl', 'avatar1.jpg', '2021-05-05 20:18:12', '2021-05-05 20:18:12'),
+(2, 'seba2137', 'sebastian@seba.com', 'avatar2.jpg', '2021-05-08 11:19:39', '2021-05-08 11:19:39'),
+(3, 'pawel69', 'papaj@interia.pl', 'avatar3.jpg', '2021-05-03 10:14:38', '2021-05-03 10:14:38'),
+(4, 'antro', 'antaresque@gmail.com', 'avatar4.jpg', '2021-05-01 21:37:00', '2021-05-01 21:37:00'),
+(5, 'ralmajster', 'dante.rydzyk@gmail.com', 'avatar5.jpg', '2021-05-01 21:37:00', '2021-05-01 21:37:00');
 
 -- --------------------------------------------------------
 
@@ -184,7 +186,7 @@ DROP TABLE IF EXISTS `users_vc`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `users_vc`  
 AS SELECT `users`.`id` AS `id`, `users`.`nickname` AS `nickname`, `users`.`email` AS `email`, 
-`users`.`createdAt` AS `createdAt`, `users`.`updatedAt` AS `updatedAt`, count(`images`.`userid`) AS `images`, 
+ `users`.`avatar` AS `avatar`, `users`.`createdAt` AS `createdAt`, `users`.`updatedAt` AS `updatedAt`, count(`images`.`userid`) AS `images`, 
 count(`comments`.`userid`) AS `comments` FROM ((`users` left join `images` on(`users`.`id` = `images`.`userid`)) 
 left join `comments` on(`users`.`id` = `comments`.`userid`)) GROUP BY `users`.`id` ;
 
