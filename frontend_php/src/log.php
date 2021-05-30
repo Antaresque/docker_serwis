@@ -9,11 +9,13 @@
 
     $data = CurlHelper::perform_http_request("POST", "http://api:4000/login/", http_build_query($arr));
     $status = $data->status;
+    $string = $_SESSION['link'];
+    echo $string;
     if($status == 200){
         $_SESSION["token"] = $data->data->token;
-        header('Location: index.php');
+        header("Location: ".$string);
     }
     else{
-        header('Location: login.php?fail=true');
+        header("Location: login.php?fail=true");
     }
 ?>
