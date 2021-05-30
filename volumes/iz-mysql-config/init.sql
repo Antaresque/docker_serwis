@@ -180,25 +180,29 @@ INSERT INTO `votes_comments` (`id`, `commentid`, `userid`, `createdAt`, `updated
 --
 DROP TABLE IF EXISTS `images_vc`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `images_vc`  AS SELECT `images`.`id` AS `id`, `images`.`userid` AS `userid`, `images`.`address` AS `address`, `images`.`title` AS `title`, `images`.`description` AS `description`, `images`.`createdAt` AS `createdAt`, `images`.`updatedAt` AS `updatedAt`, count(`votes`.`imgid`) AS `votes`, count(`comments`.`imgid`) AS `comments` FROM ((`images` left join `votes` on(`images`.`id` = `votes`.`imgid`)) left join `comments` on(`images`.`id` = `comments`.`imgid`)) GROUP BY `images`.`id` ;
+CREATE VIEW images_vc AS
+	SELECT images.*, IFNULL(a.votes, 0) AS votes, IFNULL(b.comments, 0) AS comments
+	FROM images
+    LEFT JOIN (SELECT imgid, COUNT(*) as votes FROM votes GROUP BY imgid) a ON(images.id = a.imgid)
+    LEFT JOIN (SELECT imgid, COUNT(*) as comments FROM comments GROUP BY imgid) b ON(images.id = b.imgid);
 
 DROP TABLE IF EXISTS `users_vc`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `users_vc`  
-AS SELECT `users`.`id` AS `id`, `users`.`nickname` AS `nickname`, `users`.`email` AS `email`, 
- `users`.`avatar` AS `avatar`, `users`.`createdAt` AS `createdAt`, `users`.`updatedAt` AS `updatedAt`, count(`images`.`userid`) AS `images`, 
-count(`comments`.`userid`) AS `comments` FROM ((`users` left join `images` on(`users`.`id` = `images`.`userid`)) 
-left join `comments` on(`users`.`id` = `comments`.`userid`)) GROUP BY `users`.`id` ;
+CREATE VIEW users_vc AS
+	SELECT users.*, IFNULL(a.images, 0) AS images, IFNULL(b.comments, 0) AS comments
+	FROM users
+    LEFT JOIN (SELECT userid, COUNT(*) as images FROM images GROUP BY userid) a ON(users.id = a.userid)
+    LEFT JOIN (SELECT userid, COUNT(*) as comments FROM comments GROUP BY userid) b ON(users.id = b.userid);
 
 DROP TABLE IF EXISTS `comments_vc`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `comments_vc`
-AS SELECT `comments`.`id` AS `id`, `comments`.`userid` AS `userid`, `comments`.`imgid` AS `imgid`,
-`comments`.`comment` AS `comment`, `comments`.`createdAt` as `createdAt`, `comments`.`updatedAt` as `updatedAt`,
-count(`votes_comments`.`commentid`) AS `votes` FROM (`comments` left join `votes_comments` on(`comments`.`id` = `votes_comments`.`commentid`))
-GROUP BY `comments`.`id`;
+CREATE VIEW comments_vc AS
+	SELECT comments.*, IFNULL(a.votes, 0) AS votes
+	FROM comments
+    LEFT JOIN (SELECT commentid, COUNT(*) as votes FROM votes_comments GROUP BY commentid) a ON(comments.id = a.commentid);
 
 --
+
 -- Indeksy dla zrzutów tabel
 --
 
