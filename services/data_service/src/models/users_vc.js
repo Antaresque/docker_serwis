@@ -10,7 +10,8 @@ module.exports = (sequelize) => {
         nickname: DataTypes.TEXT,
         email: DataTypes.TEXT,
         images: DataTypes.INTEGER,
-        comments: DataTypes.INTEGER
+        comments: DataTypes.INTEGER,
+        avatar: DataTypes.TEXT
     },
     {
         freezeTableName: true
