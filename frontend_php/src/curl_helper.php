@@ -7,7 +7,7 @@ class CurlHelper {
     // Method = POST, PUT, GET etc
     // Data = array("param" => "value") ==> index.php?param=value
 
-    public static function perform_http_request($method, $url, $data = false)
+    public static function perform_http_request($method, $url, $data = false, $token = null)
     {
         $curl = curl_init();
 
@@ -28,8 +28,10 @@ class CurlHelper {
         }
 
         // Optional Authentication:
-        //curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        //curl_setopt($curl, CURLOPT_USERPWD, "username:password");
+        if($token != null){
+            $auth = "Authorization: Bearer $token";
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $auth);
+        }
 
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -39,7 +41,7 @@ class CurlHelper {
         
         curl_close($curl);
 
-        return (object) array("status" => $httpcode, "data" => @json_decode($result));
+        return (object) array("status" => $httpcode, "data" => @json_decode($result), "message" => $result);
     }
 
 }
