@@ -15,8 +15,6 @@
 
         $data = CurlHelper::perform_http_request("GET", "http://api:4000/images");
         $dataIm = CurlHelper::perform_http_request("GET", "http://api:4000/images");
-
-        $data = json_decode($data);
     ?>  
     <nav class="navbar navek sticky-top">
         <a href="index.php">
@@ -38,7 +36,7 @@
                             <form action="log.php" method="post">
                                 <input type="text" name="username" value="" placeholder="Nazwa użytkownika">
                                 <p></p>
-                                <input type="text" name="password" value="" placeholder="Hasło">
+                                <input type="password" name="password" value="" placeholder="Hasło">
                                 <p></p>
                                 <button type='submit' class='btn btn-light'>Logowanie</button>
                                 <p></p>
@@ -57,9 +55,9 @@
                                 <p></p>
                                 <input type="text" name="email" value="" placeholder="Email">
                                 <p></p>
-                                <input type="text" name="password" value="" placeholder="Hasło">
+                                <input type="password" name="password" value="" placeholder="Hasło">
                                 <p></p>
-                                <input type="text" name="passwordR" value="" placeholder="Powtórz hasło">
+                                <input type="password" name="passwordR" value="" placeholder="Powtórz hasło">
                                 <p></p>
                                 <button type='submit' class='btn btn-light'>Rejestracja</button>
                                 <p></p>

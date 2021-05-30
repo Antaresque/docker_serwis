@@ -47,9 +47,11 @@
                                 <i class='fa fa-heart'></i>
                             </button>
                             <p><?= $el->votes ?></p>
-                            <button type='button' class='btn btn-lg btn-light'>
-                                <i class='fa fa-comments-o'></i>
-                            </button>
+                            <a href="img.php?id=<?= $el->id ?>">
+                                <button type='button' class='btn btn-lg btn-light'>
+                                    <i class='fa fa-comments-o'></i>
+                                </button>
+                            </a>
                             <p><?= $el->comments ?></p>
                         </div>
                     </div><p></p>
@@ -57,7 +59,7 @@
             </div>
             <div class="col-5 right-col">
                 <?php
-                if($_SESSION["token"]):?>
+                if(!isset($_SESSION["token"])):?>
                 <div class="row user sticky-top">
                     <div class="col-4 user-data rounded-end" align="center">
                         <h3>Nie jesteś zalogowany!</h3>
@@ -77,7 +79,9 @@
                         <p>Dołączył: 21.03.07</p>
                         <p>Komentarzy: 2137</p>
                         <p>Obrazków: 69</p>
-                        <button type='button' class='btn btn-danger'>Wyloguj</button>
+                        <form action="logout.php" method="post">
+                            <button type='submit' class='btn btn-danger'>Wyloguj</button>
+                        </form>
                     </div>
                 </div>
                 <?php endif; ?>

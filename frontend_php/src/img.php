@@ -18,7 +18,6 @@
         $id = $_GET["id"];
         $data = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id)->data;
         $comms = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id."/comments")->data;
-        $_SESSION["token"] = "";
     ?>  
     <nav class="navbar navek sticky-top">
             <a href="index.php">
@@ -52,8 +51,24 @@
                     </div>
                 </div>
                 <div class='row'>
-                    <p></p>
-                    <h2>Komentarze:</h2>
+                    <?php
+                    if(!isset($_SESSION["token"])):?>
+                        <p></p>
+                        <p>Musisz się zalogować aby dodawać komentarze!</p>
+                    <?php else: ?>
+                        <div class="col-12 comment-input">
+                        <p></p>
+                        <p>Dodaj komentarz:</p>
+                        <form action="commentAdd.php" method="post">
+                                    <textarea name="content" style="min-width: 100%" rows="3" placeholder="Wpisz komentarz tutaj"></textarea>
+                                    <p></p>
+                                    <button type='submit' class='btn btn-danger'>Dodaj</button>
+                                    <p></p>
+                        </form>
+                        <p></p>
+                        </div>
+                    <?php endif; ?>
+                    <h3>Komentarze:</h3>
                     <p></p>
                     <div class='col comments rounded'>
                         <?php 
@@ -83,7 +98,7 @@
             </div>
             <div class="col-5 right-col">
                 <?php
-                if($_SESSION["token"] == ""):?>
+                if(!isset($_SESSION["token"])):?>
                 <div class="row user sticky-top">
                     <div class="col-4 user-data rounded-end" align="center">
                         <h3>Nie jesteś zalogowany!</h3>
@@ -103,6 +118,9 @@
                         <p>Dołączył: 21.03.07</p>
                         <p>Komentarzy: 2137</p>
                         <p>Obrazków: 69</p>
+                        <form action="logout.php" method="post">
+                            <button type='submit' class='btn btn-danger'>Wyloguj</button>
+                        </form>
                     </div>
                 </div>
                 <?php endif; ?>
