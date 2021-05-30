@@ -24,7 +24,6 @@
             $dataU = CurlHelper::perform_http_request("GET", "http://api:4000/users/$Uid")->data;
             $dateCr = date('d.m.Y', strtotime($dataU->createdAt));
             $exists = CurlHelper::perform_http_request("GET", "http://api:4000/images/$id/votes/", false, $_SESSION["token"])->data;
-            //echo $exists;
         }
         $_SESSION["link"] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>  
@@ -62,13 +61,13 @@
                             </script>
                         <?php else: ?>
                             <?php if($exists->found) :?>
-                                <a href="imgVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>&exists=true">
+                                <a href="imgVote.php?id=<?= $id ?>&exists=true">
                                     <button type='button' class='btn btn-lg btn-success'>
                                         <i class='fa fa-heart'></i>
                                     </button>
                                 </a>
                             <?php else: ?>
-                                <a href="imgVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>&exists=false">
+                                <a href="imgVote.php?id=<?= $id ?>&exists=false">
                                     <button type='button' class='btn btn-lg btn-danger'>
                                         <i class='fa fa-heart'></i>
                                     </button>
@@ -118,11 +117,16 @@
                                         <p><?= $el->votes ?></p>
                                         <p id="<?= $el->id ?>" style="display:none">Zaloguj się!</p>
                                     <?php else: ?>
-                                        <a href="commVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>">
-                                            <button type='button' class='btn btn-danger'>
-                                                <i class='fa fa-heart'></i>
-                                            </button>
-                                        </a>
+                                        <?php
+                                        $id = $el->id;
+                                        $existsC = CurlHelper::perform_http_request("GET", "http://api:4000/comments/$id/votes/", false, $_SESSION["token"])->data;
+                                        if($existsC->found) :?>
+                                            <a href="commVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>">
+                                                <button type='button' class='btn btn-danger'>
+                                                    <i class='fa fa-heart'></i>
+                                                </button>
+                                            </a>
+                                        <?php else: 
                                         <p><?= $el->votes ?></p>
                                     <?php endif; ?>
                                     </div>

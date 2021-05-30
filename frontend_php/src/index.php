@@ -22,6 +22,7 @@
             $Uid = (json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_SESSION["token"])[1])))))->id;
             $dataU = CurlHelper::perform_http_request("GET", "http://api:4000/users/$Uid")->data;
             $dateCr = date('d.m.Y', strtotime($dataU->createdAt));
+            
         }
         $_SESSION["link"] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>  
@@ -56,11 +57,22 @@
                                 </button>
                                 <p><?= $el->votes ?></p>
                             <?php else: ?>
-                                <a href="imgVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>">
-                                    <button type='button' class='btn btn-lg btn-danger'>
-                                        <i class='fa fa-heart'></i>
-                                    </button>
-                                </a>
+                                <?php 
+                                $id = $el->id;
+                                $exists = CurlHelper::perform_http_request("GET", "http://api:4000/images/$id/votes/", false, $_SESSION["token"])->data;
+                                if($exists->found) :?>
+                                    <a href="imgVote.php?id=<?= $id ?>&exists=true">
+                                        <button type='button' class='btn btn-lg btn-success'>
+                                            <i class='fa fa-heart'></i>
+                                        </button>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="imgVote.php?id=<?= $id ?>&exists=false">
+                                        <button type='button' class='btn btn-lg btn-danger'>
+                                            <i class='fa fa-heart'></i>
+                                        </button>
+                                    </a>
+                                <?php endif; ?>
                                 <p><?= $el->votes ?></p>
                             <?php endif; ?>
                             <a href="img.php?id=<?= $el->id ?>">
