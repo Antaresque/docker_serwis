@@ -87,10 +87,11 @@
                         <p></p>
                         <p>Dodaj komentarz:</p>
                         <form action="commentAdd.php" method="post">
-                                    <textarea name="content" style="min-width: 100%" rows="3" placeholder="Wpisz komentarz tutaj"></textarea>
-                                    <p></p>
-                                    <button type='submit' class='btn btn-danger'>Dodaj</button>
-                                    <p></p>
+                            <textarea name="content" style="min-width: 100%" rows="3" placeholder="Wpisz komentarz tutaj"></textarea>
+                            <p></p>
+                            <button type='submit' class='btn btn-danger'>Dodaj</button>
+                            <input type="hidden" name="id" value="<?= $id ?>"></input>
+                            <p></p>
                         </form>
                         <p></p>
                         </div>
