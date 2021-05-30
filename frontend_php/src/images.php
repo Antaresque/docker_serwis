@@ -1,5 +1,5 @@
 <?php
-$URI = "http://store:5000/public/";
+$URI = "http://store:5000/public/image/";
 $image = @file_get_contents($URI . $_GET['obrazek']);
 
 if($image == false)
