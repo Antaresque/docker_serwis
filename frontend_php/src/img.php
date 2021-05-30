@@ -121,12 +121,18 @@
                                         $id = $el->id;
                                         $existsC = CurlHelper::perform_http_request("GET", "http://api:4000/comments/$id/votes/", false, $_SESSION["token"])->data;
                                         if($existsC->found) :?>
-                                            <a href="commVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>">
+                                            <a href="commVote.php?id=<?= $id ?>&exists=true">
+                                                <button type='button' class='btn btn-success'>
+                                                    <i class='fa fa-heart'></i>
+                                                </button>
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="commVote.php?id=<?= $id ?>&exists=false">
                                                 <button type='button' class='btn btn-danger'>
                                                     <i class='fa fa-heart'></i>
                                                 </button>
                                             </a>
-                                        <?php else: 
+                                        <?php endif; ?>
                                         <p><?= $el->votes ?></p>
                                     <?php endif; ?>
                                     </div>
