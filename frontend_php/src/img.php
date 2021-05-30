@@ -18,6 +18,13 @@
         $id = $_GET["id"];
         $data = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id)->data;
         $comms = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id."/comments")->data;
+        if(isset($_SESSION["token"]))
+        {
+            $Uid = (json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_SESSION["token"])[1])))))->id;
+            $dataU = CurlHelper::perform_http_request("GET", "http://api:4000/users/$Uid")->data;
+            $dateCr = date('d.m.Y', strtotime($dataU->createdAt));
+        }
+        $_SESSION["link"] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>  
     <nav class="navbar navek sticky-top">
             <a href="index.php">
@@ -40,14 +47,20 @@
                     </div>
     
                     <div class='col-2 img-buttons mt-auto text-center'>
-                        <button type='button' class='btn btn-lg btn-danger'>
-                            <i class='fa fa-heart'></i>
-                        </button>
-                        <p><?= $data->votes ?></p>
-                        <button type='button' class='btn btn-lg btn-light'>
-                            <i class='fa fa-comments-o'></i>
-                        </button>
-                        <p><?= $data->comments ?></p>
+                        <?if(!isset($_SESSION["token"])):?>
+                            <button type='button' class='btn btn-lg btn-danger'>
+                                    <i class='fa fa-heart'></i>
+                            </button>
+                            <p><?= $data->votes ?></p>
+                        <?php else: ?>
+                            <a href="imgVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>">
+                                <button type='button' class='btn btn-lg btn-danger'>
+                                    <i class='fa fa-heart'></i>
+                                </button>
+                            </a>
+                            <p><?= $data->votes ?></p>
+                        <?php endif; ?>
+                        
                     </div>
                 </div>
                 <div class='row'>
@@ -68,7 +81,7 @@
                         <p></p>
                         </div>
                     <?php endif; ?>
-                    <h3>Komentarze:</h3>
+                    <h3>Komentarze (<?= $data->comments ?>):</h3>
                     <p></p>
                     <div class='col comments rounded'>
                         <?php 
@@ -114,10 +127,10 @@
                         <img class="img-fluid" src="ral-min.png">
                     </div>
                     <div class="col-4 user-data rounded-end">
-                        <h2>user</h2>
-                        <p>Dołączył: 21.03.07</p>
-                        <p>Komentarzy: 2137</p>
-                        <p>Obrazków: 69</p>
+                        <h2><?= $dataU->nickname ?></h2>
+                        <p>Dołączył: <?= $dateCr ?></p>
+                        <p>Komentarzy: <?= $dataU->comments ?></p>
+                        <p>Obrazków: <?= $dataU->images ?></p>
                         <form action="logout.php" method="post">
                             <button type='submit' class='btn btn-danger'>Wyloguj</button>
                         </form>

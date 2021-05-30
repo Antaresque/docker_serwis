@@ -15,14 +15,14 @@
         $data = CurlHelper::perform_http_request("POST", "http://api:4000/register/", http_build_query($arr));
         if($data->status == 200){
             $_SESSION["token"] = $data->data->token;
-            //header('Location: index.php');
+            header('Location: index.php');
         }
         else{
-            //header('Location: login.php?fail=true');
+            header('Location: login.php?fail=true');
         }
     }
     else{
-        //header('Location: login.php?fail=true');
+        header('Location: login.php?fail=true');
     }
     echo $data->status;
 ?>
