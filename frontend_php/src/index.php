@@ -49,10 +49,20 @@
                         </div>
         
                         <div class='col-2 img-buttons mt-auto text-center'>
-                            <button type='button' class='btn btn-lg btn-danger'>
-                                <i class='fa fa-heart'></i>
-                            </button>
-                            <p><?= $el->votes ?></p>
+                            <?if(!isset($_SESSION["token"])):?>
+                                <p id="<?= $el->id ?>" style="display:none">Zaloguj się aby zagłosować!</p>
+                                <button type='button' onClick="pokaz(<?= $el->id ?>)" class='btn btn-lg btn-danger'>
+                                        <i class='fa fa-heart'></i>
+                                </button>
+                                <p><?= $el->votes ?></p>
+                            <?php else: ?>
+                                <a href="imgVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>">
+                                    <button type='button' class='btn btn-lg btn-danger'>
+                                        <i class='fa fa-heart'></i>
+                                    </button>
+                                </a>
+                                <p><?= $el->votes ?></p>
+                            <?php endif; ?>
                             <a href="img.php?id=<?= $el->id ?>">
                                 <button type='button' class='btn btn-lg btn-light'>
                                     <i class='fa fa-comments-o'></i>
@@ -97,5 +107,10 @@
             <p>Made by: Aleksander Ferens & Adam Bytniewski, 2021</p>
         </div>
     </div>
+    <script>
+        function pokaz(id){
+            document.getElementById(id).style.display = "block";
+        }
+    </script>
 </body>
 </html>
