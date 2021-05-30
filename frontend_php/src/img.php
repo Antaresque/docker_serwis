@@ -18,12 +18,13 @@
         $id = $_GET["id"];
         $data = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id)->data;
         $comms = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id."/comments")->data;
-        $exists = CurlHelper::perform_http_request("GET", "http://api:4000/images/$id/votes/$Uid")->data;
         if(isset($_SESSION["token"]))
         {
             $Uid = (json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_SESSION["token"])[1])))))->id;
             $dataU = CurlHelper::perform_http_request("GET", "http://api:4000/users/$Uid")->data;
             $dateCr = date('d.m.Y', strtotime($dataU->createdAt));
+            $exists = CurlHelper::perform_http_request("GET", "http://api:4000/images/$id/votes/", false, $_SESSION["token"])->data;
+            //echo $exists;
         }
         $_SESSION["link"] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>  
