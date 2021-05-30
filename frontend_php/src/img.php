@@ -18,6 +18,7 @@
         $id = $_GET["id"];
         $data = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id)->data;
         $comms = CurlHelper::perform_http_request("GET", "http://api:4000/images/".$id."/comments")->data;
+        $exists = CurlHelper::perform_http_request("GET", "http://api:4000/images/$id/votes/$Uid")->data;
         if(isset($_SESSION["token"]))
         {
             $Uid = (json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_SESSION["token"])[1])))))->id;
@@ -48,19 +49,32 @@
     
                     <div class='col-2 img-buttons mt-auto text-center'>
                         <?if(!isset($_SESSION["token"])):?>
-                            <button type='button' class='btn btn-lg btn-danger'>
+                            <p id="tekst" style="display:none">Zaloguj się aby zagłosować!</p>
+                            <button type='button' onClick="pokaz()" class='btn btn-lg btn-danger'>
                                     <i class='fa fa-heart'></i>
                             </button>
                             <p><?= $data->votes ?></p>
+                            <script>
+                                function pokaz(){
+                                    document.getElementById("tekst").style.display = "block";
+                                }
+                            </script>
                         <?php else: ?>
-                            <a href="imgVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>">
-                                <button type='button' class='btn btn-lg btn-danger'>
-                                    <i class='fa fa-heart'></i>
-                                </button>
-                            </a>
+                            <?php if($exists->found) :?>
+                                <a href="imgVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>&exists=true">
+                                    <button type='button' class='btn btn-lg btn-success'>
+                                        <i class='fa fa-heart'></i>
+                                    </button>
+                                </a>
+                            <?php else: ?>
+                                <a href="imgVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>&exists=false">
+                                    <button type='button' class='btn btn-lg btn-danger'>
+                                        <i class='fa fa-heart'></i>
+                                    </button>
+                                </a>
+                            <?php endif; ?>
                             <p><?= $data->votes ?></p>
                         <?php endif; ?>
-                        
                     </div>
                 </div>
                 <div class='row'>
@@ -96,10 +110,20 @@
                                         <p><?= $el->comment ?></p>
                                     </div>
                                     <div class='col-2 comment-buttons'>
-                                        <button type='button' class='btn btn-danger'>
-                                            <i class='fa fa-heart'></i>
+                                    <?if(!isset($_SESSION["token"])):?>
+                                        <button type='button' onClick="pokazC(<?= $el->id ?>)" class='btn btn-danger'>
+                                                <i class='fa fa-heart'></i>
                                         </button>
                                         <p><?= $el->votes ?></p>
+                                        <p id="<?= $el->id ?>" style="display:none">Zaloguj się!</p>
+                                    <?php else: ?>
+                                        <a href="commVote.php?id=<?= $id ?>&Uid=<?= $dataU->id ?>">
+                                            <button type='button' class='btn btn-danger'>
+                                                <i class='fa fa-heart'></i>
+                                            </button>
+                                        </a>
+                                        <p><?= $el->votes ?></p>
+                                    <?php endif; ?>
                                     </div>
                                 </div>
                                 <p></p>
@@ -143,5 +167,10 @@
             <p>Made by: Aleksander Ferens & Adam Bytniewski, 2021</p>
         </div>
     </div>
+    <script>
+        function pokazC(id){
+            document.getElementById(id).style.display = "block";
+        }
+    </script>
 </body>
 </html>
