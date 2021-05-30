@@ -11,7 +11,7 @@ const { login, register } = require("./free/auth");
 const { getUser } = require('./free/users');
 
 const { addImage, addComment } = require('./user/images');
-const { setImageVote, undoImageVote, setCommentVote, undoCommentVote } = require('./user/votes'); 
+const { getImageVote, getCommentVote, setImageVote, undoImageVote, setCommentVote, undoCommentVote } = require('./user/votes'); 
 const { uploadImage, uploadAvatar } = require('./user/upload');
 
 const { updateImage, deleteImage } = require('./owner/images');
@@ -35,8 +35,10 @@ user.get("/testAuth", userAuthValidator, (req, res) => {
     res.send({ payload: req.payload });
 });
 
+user.get('/images/:id/votes', userAuthValidator, getImageVote);
 user.post('/images/:id/votes', userAuthValidator, setImageVote);
 user.delete('/images/:id/votes', userAuthValidator, undoImageVote);
+user.get('/comments/:id/votes', userAuthValidator, getCommentVote);
 user.post('/comments/:id/votes', userAuthValidator, setCommentVote);
 user.delete('/comments/:id/votes', userAuthValidator, undoCommentVote);
 

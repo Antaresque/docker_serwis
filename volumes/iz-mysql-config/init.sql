@@ -92,7 +92,7 @@ CREATE TABLE `users_vc` (
 `id` int(11)
 ,`nickname` varchar(50)
 ,`email` varchar(50)
-,`avatar` text,
+,`avatar` text
 ,`createdAt` timestamp
 ,`updatedAt` timestamp
 ,`images` bigint(21)

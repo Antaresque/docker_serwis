@@ -1,5 +1,27 @@
 const Vote = require("../../controllers/data_vote");
 
+async function getImageVote(req, res){
+    const { id: token_user } = req.payload;
+    const { id: imgid } = req.params;
+
+    if(!token_user)
+        return res.status(401);
+
+    if(!imgid)
+        return res.status(400).send("Brak id");
+
+    try {
+        const data = await Vote.getImage(imgid, token_user);
+        return res.send(data);
+    }
+    catch(err){
+        console.log(err.message);
+        if(res.status)
+            return res.status(err.status).send(err.message);
+        else return res.sendStatus(500);
+    }
+}
+
 async function setImageVote(req, res){
     const { id: token_user } = req.payload;
     const { id: imgid } = req.params;
@@ -44,6 +66,30 @@ async function undoImageVote(req, res){
         else return res.sendStatus(500);
     }
 }
+
+async function getCommentVote(req, res){
+    const { id: token_user } = req.payload;
+    const { id: cid } = req.params;
+
+    if(!token_user)
+        return res.status(401);
+
+    if(!cid)
+        return res.status(400).send("Brak id");
+
+    try {
+        const data = await Vote.getComment(cid, token_user);
+
+        return res.send(data);
+    }
+    catch(err){
+        console.log(err.message);
+        if(res.status)
+            return res.status(err.status).send(err.message);
+        else return res.sendStatus(500);
+    }
+}
+
 
 async function setCommentVote(req, res){
     const { id: token_user } = req.payload;
@@ -92,5 +138,6 @@ async function undoCommentVote(req, res){
 
 
 module.exports = {
-    setImageVote, undoImageVote, setCommentVote, undoCommentVote
+    getImageVote, setImageVote, undoImageVote, 
+    getCommentVote, setCommentVote, undoCommentVote
 }
