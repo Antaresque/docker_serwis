@@ -30,7 +30,7 @@ class CurlHelper {
         // Optional Authentication:
         if($token != null){
             $auth = "Authorization: Bearer $token";
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $auth);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array($auth));
         }
 
         curl_setopt($curl, CURLOPT_URL, $url);
