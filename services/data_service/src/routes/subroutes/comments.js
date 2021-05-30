@@ -46,7 +46,7 @@ async function getCommentById(req, res){
 }
 
 async function addComment(req, res){
-    const { id } = req.params.id;
+    const { id } = req.params;
     if(!id || id === undefined)
         return res.sendStatus(400);
 
