@@ -38,8 +38,11 @@ async function init() {
     MVoteComment = require('./votes_comments')(sequelize);
     MVoteImage = require('./votes')(sequelize);
 
-    MImage.hasMany(MUser, {foreignKey: 'userid'});
-    MUser.belongsTo(MImage);
+    MUser.hasMany(MImage, {foreignKey: 'userid'});
+    MImage.belongsTo(MUser);
+
+    MUser.hasMany(MImageView, {foreignKey: 'userid'});
+    MImageView.belongsTo(MUser);
 
     MUser.hasMany(MComment, {foreignKey: 'userid'});
     MComment.belongsTo(MUser);
