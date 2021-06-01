@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Roboto:wght@300&display=swap');
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
 .navek{
     background-color: #181818;
     color: white;
 }
+
+.navek > a > h2 {
+    font-family: 'Mate SC', serif;
+    margin-left: 20px;
+}
+
 .mid-row{
     background-color: #252525;
     color: white;
