@@ -49,4 +49,47 @@ class CurlHelper {
         return (object) array("status" => $httpcode, "data" => @json_decode($result), "message" => $result);
     }
 
+    public static function perform_multipart_request($method, $url, $data = false, $token = null)
+    {
+        $curl = curl_init();
+
+        switch ($method)
+        {
+            case "POST":
+                curl_setopt($curl, CURLOPT_POST, 1);
+
+                if ($data)
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                break;
+            case "PUT":
+                curl_setopt($curl, CURLOPT_PUT, 1);
+                break; 
+            case "DELETE":
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE"); 
+                if ($data)
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                break; 
+            default:
+                if ($data)
+                    $url = sprintf("%s?%s", $url, http_build_query($data));
+        }
+
+        // Optional Authentication:
+        if($token != null){
+            $auth = "Authorization: Bearer $token";
+            $header = "Content-Type: multipart/form-data";
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array($auth, $header));
+        }
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $result = curl_exec($curl);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        
+        curl_close($curl);
+
+        return (object) array("status" => $httpcode, "data" => @json_decode($result), "message" => $result);
+    }
+
 }
