@@ -121,20 +121,17 @@
                                         <?php
                                         $id = $el->id;
                                         $existsC = CurlHelper::perform_http_request("GET", "http://api:4000/comments/$id/votes/", false, $_SESSION["token"])->data;
-                                        if($existsC->found) :?>
-                                            <a href="commVote.php?id=<?= $id ?>&exists=true">
-                                                <button type='button' class='btn btn-success'>
-                                                    <i class='fa fa-heart'></i>
-                                                </button>
-                                            </a>
-                                        <?php else: ?>
-                                            <a href="commVote.php?id=<?= $id ?>&exists=false">
-                                                <button type='button' class='btn btn-danger'>
-                                                    <i class='fa fa-heart'></i>
-                                                </button>
-                                            </a>
-                                        <?php endif; ?>
-                                        <p><?= $el->votes ?></p>
+                                        ?>
+                                        <button id="voteCmtT-<?= $id ?>" onclick="voteComment(<?=$id?>, true)" type='button' class='btn btn-lg btn-success' 
+                                                style="display: <?=($existsC->found) ? 'inline' : 'none' ?>">
+                                            <i class='fa fa-heart'></i>
+                                        </button>
+                                        <button id="voteCmtF-<?= $id ?>" onclick="voteComment(<?=$id?>, false)" type='button' class='btn btn-lg btn-danger'
+                                                style="display: <?=($existsC->found) ? 'none' : 'inline' ?>">
+                                            <i class='fa fa-heart'></i>
+                                        </button>
+    
+                                        <p id="votesCmt-<?=$id?>"><?= $el->votes ?></p>
                                     <?php endif; ?>
                                     </div>
                                 </div>
@@ -183,6 +180,9 @@
         function pokazC(id){
             document.getElementById(id).style.display = "block";
         }
+
+        let token = "<?= (isset($_SESSION["token"])) ? $_SESSION['token'] : null ?>"
     </script>
+    <script src='voting.js'></script>
 </body>
 </html>

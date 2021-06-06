@@ -51,5 +51,36 @@ function vote(id, mode){
                 console.log(err);
             })
         }
+    } 
+}
+
+function voteComment(id, mode){
+    if(token !== null) {
+        var url = document.location.protocol + "//" + document.location.hostname + ":4000";
+        var api = url + `/comments/${id}/votes`;
+        var options = { headers: { "Authorization": "Bearer " + token } };
+
+        var votingButtonT = document.getElementById("voteCmtT-" + id);
+        var votingButtonF = document.getElementById("voteCmtF-" + id);
+        var voteCount = document.getElementById("votesCmt-" + id);
+        
+        if(mode) {
+            axios.delete(api, options).then(res => {
+                votingButtonT.style.display = "none";
+                votingButtonF.style.display = "inline"; 
+                voteCount.innerHTML = parseInt(voteCount.innerHTML) - 1;
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        else {
+            axios.post(api, null, options).then(res => {
+                votingButtonT.style.display = "inline";
+                votingButtonF.style.display = "none"; 
+                voteCount.innerHTML = parseInt(voteCount.innerHTML) + 1;
+            }).catch(err => {
+                console.log(err);
+            })
+        }
     }
 }
