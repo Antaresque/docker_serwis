@@ -60,19 +60,14 @@
                                 }
                             </script>
                         <?php else: ?>
-                            <?php if($exists->found) :?>
-                                <a href="imgVote.php?id=<?= $id ?>&exists=true">
-                                    <button type='button' class='btn btn-lg btn-success'>
-                                        <i class='fa fa-heart'></i>
-                                    </button>
-                                </a>
-                            <?php else: ?>
-                                <a href="imgVote.php?id=<?= $id ?>&exists=false">
-                                    <button type='button' class='btn btn-lg btn-danger'>
-                                        <i class='fa fa-heart'></i>
-                                    </button>
-                                </a>
-                            <?php endif; ?>
+                            <button id="voteBtnT-<?= $id ?>" onclick="vote(<?=$id?>, true)" type='button' class='btn btn-lg btn-success' 
+                                    style="display: <?=($exists->found) ? 'inline' : 'none' ?>">
+                                <i class='fa fa-heart'></i>
+                            </button>
+                            <button id="voteBtnF-<?= $id ?>" onclick="vote(<?=$id?>, false)"type='button' class='btn btn-lg btn-danger'
+                                    style="display: <?=($exists->found) ? 'none' : 'inline' ?>">
+                                <i class='fa fa-heart'></i>
+                            </button>
                             <p><?= $data->votes ?></p>
                         <?php endif; ?>
                     </div>
@@ -179,6 +174,7 @@
             <p>Made by: Aleksander Ferens & Adam Bytniewski, 2021</p>
         </div>
     </div>
+    <script src="voting.js"></script>
     <script>
         function pokazC(id){
             document.getElementById(id).style.display = "block";
