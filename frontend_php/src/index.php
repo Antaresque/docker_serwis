@@ -97,7 +97,7 @@
                 <?php else: ?>
                 <div class="row user sticky-top">
                     <div class="col-3 user-pfp rounded-start">
-                        <img class="img-fluid" src="ral-min.png">
+                        <img class="img-fluid" src="">
                     </div>
                     <div class="col-4 user-data rounded-end">
                         <h2><?= $dataU->nickname ?></h2>

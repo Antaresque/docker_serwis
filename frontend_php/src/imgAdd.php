@@ -26,47 +26,28 @@
             <div class="col-3 left-col">
             </div>
             <div class="col-6 main-col rounded" align="center">
-                <h1>Zaloguj się lub zarejestruj</h1><p></p>
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-6 img-main rounded">
                             <p></p>
-                            <h3>Logowanie:</h3>
-                            <form action="log.php" method="post">
-                                <input type="text" name="username" value="" placeholder="Nazwa użytkownika">
+                            <form action="imgPost.php" method="post">
+                                <h1>Dodaj obrazek!</h1><p></p>
+                                <h3><input type="text" name="title" style="min-width: 80%" value="" placeholder="Tytuł obrazka"></h3>
                                 <p></p>
-                                <input type="password" name="password" value="" placeholder="Hasło">
+                                <textarea name="content" style="min-width: 80%" rows="5" placeholder="Opis obrazka"></textarea>
                                 <p></p>
-                                <button type='submit' class='btn btn-light'>Logowanie</button>
+                                <p></p>
+                                <input type="file" id="myFile" name="filename">
+                                <p></p>
+                                <button type='submit' class='btn btn-lg btn-light'>Dodaj</button>
                                 <p></p>
                             </form>
                         </div>
                         <div class="col-3"></div>
                     </div>
                     <p></p>
-                    <div class="row">
-                        <div class="col-3"></div>
-                        <div class="col-6 img-main rounded">
-                            <p></p>
-                            <h3>Rejestracja</h3>
-                            <form action="register.php" method="post">
-                                <input type="text" name="username" value="" placeholder="Nazwa użytkownika">
-                                <p></p>
-                                <input type="text" name="email" value="" placeholder="Email">
-                                <p></p>
-                                <input type="password" name="password" value="" placeholder="Hasło">
-                                <p></p>
-                                <input type="password" name="passwordR" value="" placeholder="Powtórz hasło">
-                                <p></p>
-                                <button type='submit' class='btn btn-light'>Rejestracja</button>
-                                <p></p>
-                            </form>
-                        </div>
-                        <div class="col-3"></div>
-                    </div>
             </div>
             <div class="col-3 right-col">
-                
             </div>
         </div>
         <div class="row foot-row">
