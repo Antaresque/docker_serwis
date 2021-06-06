@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(!isset($_SESSION["token"])){
+    header("Location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +23,17 @@
         $dataIm = CurlHelper::perform_http_request("GET", "http://api:4000/images");
     ?>  
     <nav class="navbar navek sticky-top">
-        <a href="index.php">
-            <h2>ABCD</h2>
-        </a>
+        <div class="col-1">
+            
+        </div>
+        <div class="col-9">
+            <a href="index.php">
+                <h2>ABCD</h2>
+            </a>
+        </div>
+        <div class="col-2 pull-right">
+            
+        </div>
     </nav>
     <div class="container-fluid">
         <div class="row mid-row">

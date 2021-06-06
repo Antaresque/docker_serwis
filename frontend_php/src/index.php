@@ -27,9 +27,26 @@
         $_SESSION["link"] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>  
     <nav class="navbar navek sticky-top">
-        <a href="index.php">
-            <h2>ABCD</h2>
-        </a>
+        <div class="col-1">
+        </div>
+        <div class="col-9">
+            <a href="index.php">
+                <h2>ABCD</h2>
+            </a>
+        </div>
+        <div class="col-2 pull-right">
+            <?php if(!isset($_SESSION["token"])):?>
+            
+            <?php else: ?>
+                <a href="imgAdd.php">
+                <button type='button'  class='btn btn-lg btn-light'>
+                    <i class='fa fa-plus'></i>
+                    <i class='fa fa-image'></i>
+                    Dodaj obrazek!
+                </button>
+                </a>
+            <?php endif; ?>
+        </div>
     </nav>
     <div class="container-fluid">
         <div class="row mid-row">

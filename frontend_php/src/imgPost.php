@@ -16,5 +16,5 @@
     print_r($data->status);
     print_r($data->message);
     print_r($data->data);
-    //header("Location: ".$string);
+    header("Location: ".$string);
 ?>
