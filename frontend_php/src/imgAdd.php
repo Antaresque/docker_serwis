@@ -30,11 +30,11 @@
                         <div class="col-3"></div>
                         <div class="col-6 img-main rounded">
                             <p></p>
-                            <form action="imgPost.php" method="post">
+                            <form action="imgPost.php" method="post" enctype="multipart/form-data">
                                 <h1>Dodaj obrazek!</h1><p></p>
-                                <h3><input type="text" name="title" style="min-width: 80%" value="" placeholder="Tytuł obrazka"></h3>
+                                <input type="text" name="title" style="min-width: 80%" value="" placeholder="Tytuł obrazka">
                                 <p></p>
-                                <textarea name="content" style="min-width: 80%" rows="5" placeholder="Opis obrazka"></textarea>
+                                <textarea name="desc" style="min-width: 80%" rows="5" placeholder="Opis obrazka"></textarea>
                                 <p></p>
                                 <p></p>
                                 <input type="file" id="myFile" name="filename">

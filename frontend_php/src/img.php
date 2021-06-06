@@ -45,8 +45,10 @@
                         <div class='row img-main'>
                             <img class='img-fluid' src='images.php?obrazek=<?= $data->address ?>'></img>
                         </div>
+                        <div class="row">
+                            <p>Opis: <?= $data->description ?></p>
+                        </div>
                     </div>
-    
                     <div class='col-2 img-buttons mt-auto text-center'>
                         <?if(!isset($_SESSION["token"])):?>
                             <p id="tekst" style="display:none">Zaloguj się aby zagłosować!</p>
