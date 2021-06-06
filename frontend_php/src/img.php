@@ -68,7 +68,7 @@
                                     style="display: <?=($exists->found) ? 'none' : 'inline' ?>">
                                 <i class='fa fa-heart'></i>
                             </button>
-                            <p><?= $data->votes ?></p>
+                            <p id="votes-<?=$id?>"><?= $data->votes ?></p>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -171,7 +171,6 @@
             <p>Made by: Aleksander Ferens & Adam Bytniewski, 2021</p>
         </div>
     </div>
-    <script src="voting.js"></script>
     <script>
         function pokazC(id){
             document.getElementById(id).style.display = "block";
