@@ -135,10 +135,6 @@
                         ?>
                             <li class="page-item">
                             <?php if($prev==0): ?>
-                                <a class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
                             <? else: ?>
                                 <a class="page-link" href="index.php?page=<?= $prev ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
@@ -147,14 +143,14 @@
                             <? endif; ?>
                             </li>
                             <?php for($i=1;$i<=$pageNo;$i++): ?>
-                            <li class="page-item"><a class="page-link" href="index.php?page=<?= $i ?>"><?= $i ?></a></li>
+                                <?php if($page==$i): ?>
+                                    <li class="page-item"><a class="page-link" style="background-color:red;" ><?= $i ?></a></li>
+                                <? else: ?>
+                                    <li class="page-item"><a class="page-link" href="index.php?page=<?= $i ?>"><?= $i ?></a></li>
+                                <? endif; ?>
                             <?php endfor; ?>
                             <li class="page-item">
-                            <?php if($next==$pageNo): ?>
-                                <a class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+                            <?php if($next==$pageNo+1): ?>
                             <? else: ?>
                                 <a class="page-link" href="index.php?page=<?= $next ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
