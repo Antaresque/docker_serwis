@@ -2,7 +2,7 @@ const free = require('express').Router();
 const user = require('express').Router();
 const owner = require('express').Router();
 const multer = require('multer');
-const upload = multer();
+const upload = multer({ limits: { fileSize: 10485760 /* 10 Mb */ } });
 
 const { userAuthValidator } = require('../controllers/authMiddle');
 
@@ -17,6 +17,7 @@ const { uploadImage, uploadAvatar } = require('./user/upload');
 const { updateImage, deleteImage } = require('./owner/images');
 const { updateComment, deleteComment } = require('./owner/comments');
 const { updateUser, deleteUser, getUserFull } = require('./owner/users');
+const { getAllUsers, getAllComments } = require('./owner/admin');
 
 // --- FREE ROUTES ---
  
@@ -58,6 +59,9 @@ owner.put('/images/:id/comments', userAuthValidator, updateComment);
 owner.delete('/images/:id/comments', userAuthValidator, deleteComment);
 owner.put('/users/:id', userAuthValidator, updateUser);
 owner.delete('/users/:id', userAuthValidator, deleteUser);
+
+owner.get('/users/', userAuthValidator, getAllUsers);
+owner.get('/comments/', userAuthValidator, getAllComments);
 
 
 module.exports = {

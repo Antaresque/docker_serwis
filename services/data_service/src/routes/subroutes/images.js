@@ -28,8 +28,8 @@ async function getImages(req, res){
     }
 
     try {
-        const items = await ImageView.findAll(options);
-        res.send(items);
+        const { count, rows } = await ImageView.findAndCountAll(options);
+        res.send({ data: rows, totalCount: count });
     }
     catch(err) {
         console.log(err.message);

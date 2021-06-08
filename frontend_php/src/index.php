@@ -16,7 +16,7 @@
     <?php
         require_once 'curl_helper.php';
 
-        $data = CurlHelper::perform_http_request("GET", "http://api:4000/images")->data;
+        $data = CurlHelper::perform_http_request("GET", "http://api:4000/images")->data->data;
         if(isset($_SESSION["token"]))
         {
             $Uid = (json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_SESSION["token"])[1])))))->id;
