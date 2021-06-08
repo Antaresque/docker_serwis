@@ -4,15 +4,11 @@ const { isEmpty } = require('../../helper');
 
 async function getAllUsers(req, res){
     const { role } = req.payload;
-    let { limit, page } = req.params;
+    const limit = parseInt(req.query.limit) ? req.query.limit : 10;
+    const page  = parseInt(req.query.page)  ? req.query.page  : 1;
 
     if(role !== 'admin')
         return res.sendStatus(401);
-    
-    if(!limit)
-        limit = 10;
-    if(!page)
-        page = 1;
 
     try {
         const data = await User.getAllAdmin(limit, page);
@@ -32,16 +28,12 @@ async function getAllUsers(req, res){
 
 async function getAllComments(req, res){
     const { role } = req.payload;
-    let { limit, page } = req.params;
+    const limit = parseInt(req.query.limit) ? req.query.limit : 10;
+    const page  = parseInt(req.query.page)  ? req.query.page  : 1;
 
     if(role !== 'admin')
         return res.sendStatus(401);
 
-    if(!limit)
-        limit = 10;
-    if(!page)
-        page = 1;
-    
     try {
         const data = await Comment.getAllAdmin(limit, page);
 

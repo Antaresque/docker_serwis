@@ -52,6 +52,8 @@ div#buttons > div {
 div#table {
     display: flex;
     text-align: center;
+    justify-content: center;
+    margin-top: 1em;
 }
 
 div#table > table > tr > td {
