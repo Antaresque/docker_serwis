@@ -4,6 +4,14 @@ const DATA_URI = process.env.DATA_SERVICE_URI;
 const { handleErrors } = require('../helper');
 
 // --------------- COMMENTS --------------------
+async function getAllAdmin(limit, page) {
+    try {
+        const reply = await axios.get(DATA_URI + `/comments?limit=${limit}&page=${page}`);
+        return reply.data;
+    }
+    catch(err) { handleErrors(err) }
+}
+
 async function getById(id){
     try {
         const reply = await axios.get(DATA_URI + `/comments/${id}`);
@@ -37,5 +45,5 @@ async function remove(id) {
 }
 
 module.exports = {
-    create, edit, remove, getById
+    create, edit, remove, getById, getAllAdmin
 }

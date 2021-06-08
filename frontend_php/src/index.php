@@ -28,7 +28,9 @@
         $count = $result->totalCount;
         if(isset($_SESSION["token"]))
         {
-            $Uid = (json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_SESSION["token"])[1])))))->id;
+            $payload = (json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_SESSION["token"])[1])))));
+            $Uid = $payload->id;
+            $role = $payload->role;
             $dataU = CurlHelper::perform_http_request("GET", "http://api:4000/users/$Uid")->data;
             $dateCr = date('d.m.Y', strtotime($dataU->createdAt));
             
@@ -40,11 +42,21 @@
     <nav class="navbar navek sticky-top">
         <div class="col-1">
         </div>
-        <div class="col-9">
+        <div class="col-7">
             <a href="index.php">
                 <h2>ABCD</h2>
             </a>
         </div>
+        <div class="col-2 pull-right">
+            <?php if(isset($role) && $role == "admin"): ?>
+            <a href="admin.php">
+                <button type='button'  class='btn btn-lg btn-light'>
+                    <i class='fa fa-wrench'></i>
+                    Panel admina
+                </button>
+            </a>
+            <?php endif; ?>
+        </div> 
         <div class="col-2 pull-right">
             <?php if(!isset($_SESSION["token"])):?>
             

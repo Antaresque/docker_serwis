@@ -2,6 +2,27 @@ const models = require("../../models");
 const User = models.User;
 const UserView = models.UserView;
 
+async function getAllUsers(req, res){
+    const limit = parseInt(req.query.limit);
+    // offset = ilosc obrazkow na stronie * numer strony
+    const offset = limit * ( parseInt(req.query.page) - 1 );
+
+    const options = { 
+        order: [['createdAt', 'DESC']], 
+        limit: limit, 
+        offset: offset
+    }
+
+    try {
+        const data = await UserView.findAll(options);
+        res.send(data);
+    }
+    catch(err) {
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
+
 async function getUserById(req, res) {
     const { id } = req.params;
     if(!id)
@@ -105,5 +126,5 @@ async function removeUser(req, res){
 }
 
 module.exports = {
-    getUserById, getUserFullById, registerUser, changeUser, removeUser
+    getAllUsers, getUserById, getUserFullById, registerUser, changeUser, removeUser
 }
