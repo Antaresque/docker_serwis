@@ -24,10 +24,10 @@
     }
 
     $URI = "api:4000/$tab";
-    $req = CurlHelper::perform_http_request("GET", "$URI?limit=50&page=$page", false, $token);
+    $req = CurlHelper::perform_http_request("GET", "$URI?limit=10&page=$page", false, $token);
     $status = $req->status;
     
-    if($req->status == 200)
+    if($status == 200)
         $data = $req->message;
     
     
@@ -63,9 +63,11 @@
                <div id="table"></div> 
                <div id="buttons">
                     <div id="btn-left">
+                        <?php if($page != 1): ?>
                         <a href="admin.php?tab=<?=$tab?>&page=<?=$page-1?>">
                             <i class="fa fa-arrow-left fa-4x"></i>
                         </a>
+                        <?php endif; ?>
                     </div>
                     <div id="page">
                         <h2><?=$page?></h2>
