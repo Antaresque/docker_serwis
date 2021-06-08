@@ -22,6 +22,7 @@
         }
         else
         {
+            $page = 1;
             $result = CurlHelper::perform_http_request("GET", "http://api:4000/images?count=true")->data;
         }
         $data = $result->data;
@@ -126,20 +127,40 @@
                     <p></p>
                     <h4>
                         <ul class="pagination">
+                        <?php
+                            $prev = $page-1;
+                            $next = $page+1;
+                            $pageNo = 0;
+                            $pageNo = ceil($count/10);
+                        ?>
                             <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
+                            <?php if($prev==0): ?>
+                                <a class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            <? else: ?>
+                                <a class="page-link" href="index.php?page=<?= $prev ?>" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            <? endif; ?>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="index.php?page=2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <?php for($i=1;$i<=$pageNo;$i++): ?>
+                            <li class="page-item"><a class="page-link" href="index.php?page=<?= $i ?>"><?= $i ?></a></li>
+                            <?php endfor; ?>
                             <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
+                            <?php if($next==$pageNo): ?>
+                                <a class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            <? else: ?>
+                                <a class="page-link" href="index.php?page=<?= $next ?>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            <? endif; ?>
                             </li>
                         </ul>
                     </h4>
