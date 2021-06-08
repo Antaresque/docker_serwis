@@ -12,6 +12,14 @@ async function getAllAdmin(limit, page) {
     catch(err) { handleErrors(err) }
 }
 
+async function getUserImages(id){
+    try {
+        const reply = await axios.get(DATA_URI + `/users/${id}/images`);
+        return reply.data;
+    }
+    catch(err) { handleErrors(err) }
+}
+
 async function register(user, email){
     try{
         const reply = await axios.post(DATA_URI + `/register`, { nickname: user, email: email });
@@ -47,5 +55,5 @@ async function edit(id, obj) {
 module.exports = {
     register,
     getById, getFull, getAllAdmin,
-    edit
+    edit, getUserImages
 }

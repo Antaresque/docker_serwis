@@ -8,7 +8,7 @@ const { userAuthValidator } = require('../controllers/authMiddle');
 
 const { getAll, getOne, getComments } = require("./free/images");
 const { login, register } = require("./free/auth");
-const { getUser } = require('./free/users');
+const { getUser, getUserImages } = require('./free/users');
 
 const { addImage, addComment } = require('./user/images');
 const { getImageVote, getCommentVote, setImageVote, undoImageVote, setCommentVote, undoCommentVote } = require('./user/votes'); 
@@ -29,6 +29,9 @@ free.post("/login", login);
 free.post("/register", register);
 
 free.get('/users/:id', getUser);
+
+free.get('/users/:id/images', getUserImages);
+
 
 // --- USER ROUTES ---
 

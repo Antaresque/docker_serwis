@@ -15,6 +15,19 @@ async function getImageById(req, res) {
     }
 }
 
+async function getImageByUser(req, res){
+    const id = req.params.id;
+
+    try {
+        const items = await ImageView.findAll({ where: { userid: id } });
+        res.send(items);
+    }
+    catch(err) {
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
+
 async function getImages(req, res){
     const limit = parseInt(req.query.limit);
     // offset = ilosc obrazkow na stronie * numer strony
@@ -133,5 +146,6 @@ module.exports = {
     getImages,
     addImage, 
     changeImage, 
-    deleteImage
+    deleteImage,
+    getImageByUser
 }
