@@ -81,12 +81,12 @@ body{
 .pagination > .active > a
 {
     color: white;
-    background-color: #5A4181 !Important;
-    border: solid 1px #5A4181 !Important;
+    background-color: black !Important;
+    border: solid 1px black !Important;
 }
 
 .pagination > .active > a:hover
 {
-    background-color: #5A4181 !Important;
-    border: solid 1px #5A4181;
+    background-color: black !Important;
+    border: solid 1px black;
 }
