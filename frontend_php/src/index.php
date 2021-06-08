@@ -15,8 +15,17 @@
 <body>
     <?php
         require_once 'curl_helper.php';
-
-        $data = CurlHelper::perform_http_request("GET", "http://api:4000/images")->data->data;
+        if(isset($_GET["page"]))
+        {
+            $page = $_GET["page"];
+            $result = CurlHelper::perform_http_request("GET", "http://api:4000/images?count=true&page=".$page)->data;
+        }
+        else
+        {
+            $result = CurlHelper::perform_http_request("GET", "http://api:4000/images?count=true")->data;
+        }
+        $data = $result->data;
+        $count = $result->totalCount;
         if(isset($_SESSION["token"]))
         {
             $payload = (json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_SESSION["token"])[1])))));
@@ -27,6 +36,8 @@
             
         }
         $_SESSION["link"] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        
+        
     ?>  
     <nav class="navbar navek sticky-top">
         <div class="col-1">
@@ -122,7 +133,7 @@
                             </a>
                             </li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="index.php?id=2">2</a></li>
+                            <li class="page-item"><a class="page-link" href="index.php?page=2">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
                             <li class="page-item">
                             <a class="page-link" href="#" aria-label="Next">
