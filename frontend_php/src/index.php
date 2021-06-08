@@ -98,6 +98,29 @@
                         </div>
                     </div><p></p>
                 <?php endforeach; ?>
+                
+                <div class="row pagi" align="center">
+                    <p></p>
+                    <h4>
+                        <ul class="pagination">
+                            <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="index.php?id=2">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            </li>
+                        </ul>
+                    </h4>
+                </div>
             </div>
             <div class="col-5 right-col">
                 <?php
