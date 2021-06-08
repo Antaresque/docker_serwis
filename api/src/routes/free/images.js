@@ -8,12 +8,13 @@ const { isEmpty } = require('../../helper');
  * @param page - which page (offset), default: 1
  * @route /images/
  */
-async function getAll (req, res) {
+async function getAll(req, res) {
     const limit = parseInt(req.query.limit) ? req.query.limit : 10;
     const page  = parseInt(req.query.page)  ? req.query.page  : 1;
+    const count = (req.query.count === undefined) ? false : req.query.count;
 
     try {
-        const data = await Image.getHomepage(limit, page);
+        const data = await Image.getHomepage(limit, page, count);
 
         if(isEmpty(data))
             res.sendStatus(404);

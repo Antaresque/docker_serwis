@@ -4,9 +4,9 @@ const DATA_URI = process.env.DATA_SERVICE_URI;
 const { handleErrors } = require('../helper');
 
 // --------------- IMAGES --------------------
-async function getHomepage(limit, page) {
+async function getHomepage(limit, page, count) {
     try{
-        const reply = await axios.get(DATA_URI + `/images?limit=${limit}&page=${page}`);
+        const reply = await axios.get(DATA_URI + `/images?limit=${limit}&page=${page}&count=${count}`);
         return reply.data;
     }
     catch(err){ handleErrors(err) }

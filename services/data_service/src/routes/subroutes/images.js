@@ -1,4 +1,3 @@
-const { response } = require("express");
 const models = require("../../models");
 const Image = models.Image;
 const ImageView = models.ImageView;
@@ -20,6 +19,7 @@ async function getImages(req, res){
     const limit = parseInt(req.query.limit);
     // offset = ilosc obrazkow na stronie * numer strony
     const offset = limit * ( parseInt(req.query.page) - 1 );
+    const countP = req.query.count;
 
     const options = { 
         order: [['createdAt', 'DESC']], 
@@ -27,15 +27,26 @@ async function getImages(req, res){
         offset: offset
     }
 
+    //console.log(count);
     try {
-        const { count, rows } = await ImageView.findAndCountAll(options);
-        res.send({ data: rows, totalCount: count });
+        if(countP === 'true') {
+            const { count, rows } = await ImageView.findAndCountAll(options);
+            res.send({ data: rows, totalCount: count });
+        }
+        else if(countP === 'false') {
+            const data = await ImageView.findAll(options);
+            res.send(data);
+        }
+        else{
+            res.sendStatus(400);
+        }
     }
     catch(err) {
         console.log(err.message);
         res.sendStatus(500);
     }
 }
+
 
 async function addImage(req, res){
     const { userid, title, description, address } = req.body;
