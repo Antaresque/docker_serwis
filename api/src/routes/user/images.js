@@ -7,6 +7,8 @@ async function addImage(req, res){
     const { id: token_user } = req.payload;
     const { title, description } = req.body;
 
+    console.log("test");
+
     if(!title)
         return res.status(400).send("Brak tytułu obrazka");
     if(!description)

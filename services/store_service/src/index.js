@@ -28,8 +28,8 @@ const { uploadImage } = require('./upload');
 
 app.use("/public/image", express.static(path.join(__dirname, 'public/image')));
 app.use("/public/avatar", express.static(path.join(__dirname, 'public/avatar')));
-app.post("/upload/avatar", multer({ storage: uploadAv }).single('file'), uploadImage);
-app.post("/upload/image", multer({ storage: uploadIm }).single('file'), uploadImage);
+app.post("/upload/avatar", multer({ storage: uploadAv, limits: { fileSize: 10485760 } }).single('file'), uploadImage);
+app.post("/upload/image", multer({ storage: uploadIm, limits: { fileSize: 10485760 } }).single('file'), uploadImage);
 
 app.listen(5000, () => {
     console.log("Listening on port 5000");
