@@ -3,6 +3,27 @@ const Comment = models.Comment;
 const CommentView = models.CommentView;
 const User = models.User;
 
+async function getAllComments(req, res){
+    const limit = parseInt(req.query.limit);
+    // offset = ilosc obrazkow na stronie * numer strony
+    const offset = limit * ( parseInt(req.query.page) - 1 );
+
+    const options = { 
+        order: [['createdAt', 'DESC']], 
+        limit: limit, 
+        offset: offset
+    }
+
+    try {
+        const data = await CommentView.findAll(options);
+        res.send(data);
+    }
+    catch(err) {
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
+
 async function getComments(req, res){
     const id = req.params.id;
 
@@ -128,5 +149,5 @@ async function deleteComment(req, res){
 }
 
 module.exports = {
-    getComments, getCommentById, addComment, changeComment, deleteComment
+    getAllComments, getComments, getCommentById, addComment, changeComment, deleteComment
 }

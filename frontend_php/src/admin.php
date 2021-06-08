@@ -30,6 +30,7 @@
     if($req->status == 200)
         $data = $req->message;
     
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,9 +54,9 @@
     <div class="container-fluid">
         <div class="row mid-row">
             <div class="col-2 left-col admin-left-col">
-                <div>użytkownicy</div>
-                <div>obrazki</div>
-                <div>komentarze</div>
+                <div><a href="admin.php?tab=users">użytkownicy</a></div>
+                <div><a href="admin.php?tab=images">obrazki</a></div>
+                <div><a href="admin.php?tab=comments">komentarze</a></div>
                 <div></div>
             </div>
             <div class="col-10 main-col rounded">
