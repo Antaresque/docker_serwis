@@ -20,7 +20,7 @@ async function getImageByUser(req, res){
     // offset = ilosc obrazkow na stronie * numer strony
     const offset = limit * ( parseInt(req.query.page) - 1 );
     const countP = req.query.count;
-    const id = req.params.userid;
+    const id = req.params.id;
 
     const options = { 
         order: [['createdAt', 'DESC']], 

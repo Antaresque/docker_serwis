@@ -12,9 +12,9 @@ async function getAllAdmin(limit, page) {
     catch(err) { handleErrors(err) }
 }
 
-async function getUserImages(id){
+async function getUserImages(id, limit, page, count){
     try {
-        const reply = await axios.get(DATA_URI + `/users/${id}/images`);
+        const reply = await axios.get(DATA_URI + `/users/${id}/images?limit=${limit}&page=${page}&count=${count}`);
         return reply.data;
     }
     catch(err) { handleErrors(err) }

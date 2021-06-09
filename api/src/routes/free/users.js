@@ -31,10 +31,14 @@ async function getUserImages(req, res){
         return;
     }
 
+    const limit = parseInt(req.query.limit) ? req.query.limit : 10;
+    const page  = parseInt(req.query.page)  ? req.query.page  : 1;
+    const count = (req.query.count === undefined) ? false : req.query.count;
+
     const id = parseInt(req.params.id);
 
     try {
-        const data = await User.getUserImages(id);
+        const data = await User.getUserImages(id, limit, page, count);
 
         if(isEmpty(data))
             res.sendStatus(404);
