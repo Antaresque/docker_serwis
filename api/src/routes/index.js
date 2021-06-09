@@ -50,7 +50,7 @@ user.post('/images', userAuthValidator, upload.single('file'), addImage);
 user.post('/images/:id/comments', userAuthValidator, addComment);
 
 //user.post('/images/upload', userAuthValidator);
-user.post('/users/upload', userAuthValidator, upload.single('avatar'), uploadAvatar);
+user.post('/users/upload', userAuthValidator, upload.single('file'), uploadAvatar);
 
 // --- OWNER ROUTES ---
 
