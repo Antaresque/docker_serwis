@@ -1,4 +1,4 @@
-const { User } = require('../../../../services/data_service/src/models');
+const User = require('../../controllers/data_user');
 const { upload } = require('../../controllers/store');
 const { isEmpty } = require('../../helper');
 
