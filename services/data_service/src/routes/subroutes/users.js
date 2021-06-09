@@ -79,16 +79,22 @@ async function changeUser(req, res){
     if(!id || id === undefined)
         return res.sendStatus(400);
 
-    const { email } = req.body;
-    if(email) {
-        const newObj = { email: email };
+    let obj = {};
+    const { email, avatar } = req.body;
 
+    if(email !== undefined)
+        obj.email = email;
+
+    if(avatar !== undefined)
+        obj.avatar = avatar;
+
+    if(obj !== {}) {
         try {
             const records = await User.update(newObj, { where: { id: id } });
             if(!records)
                 throw("No updated record");
             
-            const updatedImage = await User.findByPk(id);
+            const updatedImage = await User.findByPk(id, {attributes: ['id', 'nickname', 'avatar', 'images', 'comments', 'createdAt']});
             if(!updatedImage)
                 throw("No updated record");
     
