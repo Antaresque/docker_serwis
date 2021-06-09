@@ -90,7 +90,7 @@ async function changeUser(req, res){
 
     if(obj !== {}) {
         try {
-            const records = await User.update(newObj, { where: { id: id } });
+            const records = await User.update(obj, { where: { id: id } });
             if(!records)
                 throw("No updated record");
             
