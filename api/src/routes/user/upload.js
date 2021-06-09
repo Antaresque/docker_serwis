@@ -31,11 +31,11 @@ async function uploadAvatar(req, res){
         return res.status(401).send("Invalid id");
 
     try {
-        const status = await upload(req.file, 'avatar');
-        if(!status)
+        const filename = await upload(req.file, 'avatar');
+        if(!filename)
             return res.sendStatus(500);
         
-        const data = await User.edit(req.payload.id, {avatar: status.filename})
+        const data = await User.edit(req.payload.id, {avatar: filename})
 
         if(isEmpty(data))
             return res.sendStatus(500);
