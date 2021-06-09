@@ -1,10 +1,22 @@
 <?php
-$URI = "http://store:5000/public/image/";
-$image = @file_get_contents($URI . $_GET['obrazek']);
+if(isset($_GET["obrazek"])){
+    $URI = "http://store:5000/public/image/";
+    $image = @file_get_contents($URI . $_GET['obrazek']);
 
-if($image == false)
-    $image = file_get_contents('./placeholder.jpg', true);
+    if($image == false)
+        $image = file_get_contents('./placeholder.jpg', true);
 
-header('Content-type: image/jpeg');
+    header('Content-type: image/jpeg');
+    echo $image;
+}
+else if(isset($_GET["avatar"]))
+{
+    $URI = "http://store:5000/public/avatar/";
+    $image = @file_get_contents($URI . $_GET['avatar']);
 
-echo $image;
+    if($image == false)
+        $image = file_get_contents('./placeholder.jpg', true);
+
+    header('Content-type: image/jpeg');
+    echo $image;
+}

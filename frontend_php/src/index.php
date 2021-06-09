@@ -43,7 +43,7 @@
     <nav class="navbar navek sticky-top">
         <div class="col-1">
         </div>
-        <div class="col-7">
+        <div class="col-5">
             <a href="index.php">
                 <h2>ABCD</h2>
             </a>
@@ -58,6 +58,18 @@
             </a>
             <?php endif; ?>
         </div> 
+        <div class="col-2 pull-right">
+            <?php if(!isset($_SESSION["token"])):?>
+            
+            <?php else: ?>
+                <a href="avtChange.php">
+                <button type='button'  class='btn btn-lg btn-light'>
+                    <i class='fa fa-user'></i>
+                    Zmień avatar!
+                </button>
+                </a>
+            <?php endif; ?>
+        </div>
         <div class="col-2 pull-right">
             <?php if(!isset($_SESSION["token"])):?>
             
@@ -83,6 +95,10 @@
                             <div class='row img-title'>
                                 <a href="img.php?id=<?= $el->id ?>">
                                     <h2 class="title"><?= $el->title ?></h2>
+                                    <a href="user.php?id=<?= $el->userid ?>"><?php 
+                                        $nick = CurlHelper::perform_http_request("GET", "http://api:4000/users/$el->userid")->data;
+                                        echo $nick->nickname;
+                                    ?></a>
                                 </a>
                             </div>
                             <div class='row img-main'>
@@ -134,29 +150,31 @@
                             $pageNo = ceil($count/10);
                         ?>
                             <li class="page-item">
-                            <?php if($prev==0): ?>
-                            <? else: ?>
-                                <a class="page-link" href="index.php?page=<?= $prev ?>" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            <? endif; ?>
-                            </li>
-                            <?php for($i=1;$i<=$pageNo;$i++): ?>
-                                <?php if($page==$i): ?>
-                                    <li class="page-item"><a class="page-link" style="background-color:red;" ><?= $i ?></a></li>
+                            <?php if($count!=0): ?>
+                                <?php if($prev==0): ?>
                                 <? else: ?>
-                                    <li class="page-item"><a class="page-link" href="index.php?page=<?= $i ?>"><?= $i ?></a></li>
+                                    <a class="page-link" href="index.php?page=<?= $prev ?>" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
                                 <? endif; ?>
-                            <?php endfor; ?>
-                            <li class="page-item">
-                            <?php if($next==$pageNo+1): ?>
-                            <? else: ?>
-                                <a class="page-link" href="index.php?page=<?= $next ?>" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            <? endif; ?>
+                                </li>
+                                <?php for($i=1;$i<=$pageNo;$i++): ?>
+                                    <?php if($page==$i): ?>
+                                        <li class="page-item"><a class="page-link" style="background-color:red;" ><?= $i ?></a></li>
+                                    <? else: ?>
+                                        <li class="page-item"><a class="page-link" href="index.php?page=<?= $i ?>"><?= $i ?></a></li>
+                                    <? endif; ?>
+                                <?php endfor; ?>
+                                <li class="page-item">
+                                <?php if($next==$pageNo+1): ?>
+                                <? else: ?>
+                                    <a class="page-link" href="index.php?page=<?= $next ?>" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                <? endif; ?>
+                            <?php endif; ?>
                             </li>
                         </ul>
                     </h4>
@@ -177,15 +195,15 @@
                 <?php else: ?>
                 <div class="row user sticky-top">
                     <div class="col-3 user-pfp rounded-start">
-                        <img class="img-fluid" src="">
+                        <img class="img-fluid avatar" src="images.php?avatar=<?= $dataU->avatar ?>">
                     </div>
                     <div class="col-4 user-data rounded-end">
                         <h2><?= $dataU->nickname ?></h2>
-                        <p>Dołączył: <?= $dateCr ?></p>
-                        <p>Komentarzy: <?= $dataU->comments ?></p>
-                        <p>Obrazków: <?= $dataU->images ?></p>
+                        Dołączył: <?= $dateCr ?><br>
+                        Komentarzy: <?= $dataU->comments ?><br>
+                        Obrazków: <?= $dataU->images ?><br>
                         <form action="logout.php" method="post">
-                            <button type='submit' class='btn btn-danger'>Wyloguj</button>
+                            <button type='submit' class='btn btn-sm btn-danger'>Wyloguj</button>
                         </form>
                     </div>
                 </div>

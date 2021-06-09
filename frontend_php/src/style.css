@@ -2,7 +2,14 @@
 body{
     font-family: 'Roboto', sans-serif;
 }
-
+.avatar{
+    height:150px;
+    width:150px;
+}
+.avatar-sm{
+    height:80px;
+    width:80px;
+}
 .navek{
     background-color: #181818;
     color: white;
@@ -12,12 +19,16 @@ body{
     font-family: 'Mate SC', serif;
     margin-left: 20px;
 }
-
 .mid-row{
     background-color: #252525;
     color: white;
     padding:10px;
     min-height:89.5vh;
+}
+.user-inf{
+    background-color: #181818;
+    color: white;
+    padding:10px;
 }
 .foot-row{
     background-color: #181818;
@@ -45,15 +56,12 @@ body{
 }
 .user-data, .user-pfp{
     background-color: #181818;
-    padding:5px;
-    padding-bottom:5px;
+    padding:15px;
+    padding-bottom:15px;
 }
 .user{
     padding:5px;
     top: 72px;
-}
-.title{
-    color:white;
 }
 .pagination {
     display: flex;
@@ -89,4 +97,11 @@ body{
 {
     background-color: black !Important;
     border: solid 1px black;
+}
+a:link, a:visited{
+    color:white;
+    text-decoration: none;
+}
+a:hover{
+    color:red;
 }

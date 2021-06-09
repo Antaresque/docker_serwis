@@ -30,10 +30,32 @@
     <nav class="navbar navek sticky-top">
         <div class="col-1">
         </div>
-        <div class="col-9">
+        <div class="col-5">
             <a href="index.php">
                 <h2>ABCD</h2>
             </a>
+        </div>
+        <div class="col-2 pull-right">
+            <?php if(isset($role) && $role == "admin"): ?>
+            <a href="admin.php">
+                <button type='button'  class='btn btn-lg btn-light'>
+                    <i class='fa fa-wrench'></i>
+                    Panel admina
+                </button>
+            </a>
+            <?php endif; ?>
+        </div> 
+        <div class="col-2 pull-right">
+            <?php if(!isset($_SESSION["token"])):?>
+            
+            <?php else: ?>
+                <a href="avtChange.php">
+                <button type='button'  class='btn btn-lg btn-light'>
+                    <i class='fa fa-user'></i>
+                    Zmień avatar!
+                </button>
+                </a>
+            <?php endif; ?>
         </div>
         <div class="col-2 pull-right">
             <?php if(!isset($_SESSION["token"])):?>
@@ -58,12 +80,17 @@
                     <div class='col-10 img-main rounded'>
                         <div class='row img-title'>
                             <h2><?= $data->title ?></h2>
+                            <a href="user.php?id=<?= $data->userid ?>"><?php 
+                                $nick = CurlHelper::perform_http_request("GET", "http://api:4000/users/$data->userid")->data;
+                                echo $nick->nickname;
+                            ?></a>
                         </div>
                         <div class='row img-main'>
                             <img class='img-fluid' src='images.php?obrazek=<?= $data->address ?>'></img>
                         </div>
                         <div class="row">
-                            <p>Opis: <?= $data->description ?></p>
+                            <p></p>
+                            <p><?= $data->description ?></p>
                         </div>
                     </div>
                     <div class='col-2 img-buttons mt-auto text-center'>
@@ -120,8 +147,14 @@
                         else{
                             foreach($comms as $el): ?>
                                 <div class='row comment rounded'>
-                                    <div class='col-10'>
-                                        <h3><?= $el->user->nickname ?></h3>
+                                    <?php
+                                        $nick = CurlHelper::perform_http_request("GET", "http://api:4000/users/$el->userid")->data;
+                                    ?>
+                                    <div class="col-2 user-pfp rounded-start">
+                                        <img class="img-fluid avatar-sm" src="images.php?avatar=<?= $nick->avatar ?>">
+                                    </div>
+                                    <div class='col-8'>
+                                        <a href="user.php?id=<?= $el->userid ?>"><h4><?= $el->user->nickname ?></h4></a>
                                         <p><?= $el->comment ?></p>
                                     </div>
                                     <div class='col-2 comment-buttons'>
@@ -136,15 +169,14 @@
                                         $id = $el->id;
                                         $existsC = CurlHelper::perform_http_request("GET", "http://api:4000/comments/$id/votes/", false, $_SESSION["token"])->data;
                                         ?>
-                                        <button id="voteCmtT-<?= $id ?>" onclick="voteComment(<?=$id?>, true)" type='button' class='btn btn-lg btn-success' 
+                                        <button id="voteCmtT-<?= $id ?>" onclick="voteComment(<?=$id?>, true)" type='button' class='btn btn-sm btn-success' 
                                                 style="display: <?=($existsC->found) ? 'inline' : 'none' ?>">
                                             <i class='fa fa-heart'></i>
                                         </button>
-                                        <button id="voteCmtF-<?= $id ?>" onclick="voteComment(<?=$id?>, false)" type='button' class='btn btn-lg btn-danger'
+                                        <button id="voteCmtF-<?= $id ?>" onclick="voteComment(<?=$id?>, false)" type='button' class='btn btn-sm btn-danger'
                                                 style="display: <?=($existsC->found) ? 'none' : 'inline' ?>">
                                             <i class='fa fa-heart'></i>
                                         </button>
-    
                                         <p id="votesCmt-<?=$id?>"><?= $el->votes ?></p>
                                     <?php endif; ?>
                                     </div>
@@ -171,15 +203,15 @@
                 <?php else: ?>
                 <div class="row user sticky-top">
                     <div class="col-3 user-pfp rounded-start">
-                        <img class="img-fluid" src="">
+                        <img class="img-fluid avatar" src="images.php?avatar=<?= $dataU->avatar ?>">
                     </div>
                     <div class="col-4 user-data rounded-end">
                         <h2><?= $dataU->nickname ?></h2>
-                        <p>Dołączył: <?= $dateCr ?></p>
-                        <p>Komentarzy: <?= $dataU->comments ?></p>
-                        <p>Obrazków: <?= $dataU->images ?></p>
+                        Dołączył: <?= $dateCr ?><br>
+                        Komentarzy: <?= $dataU->comments ?><br>
+                        Obrazków: <?= $dataU->images ?><br>
                         <form action="logout.php" method="post">
-                            <button type='submit' class='btn btn-danger'>Wyloguj</button>
+                            <button type='submit' class='btn btn-sm btn-danger'>Wyloguj</button>
                         </form>
                     </div>
                 </div>
