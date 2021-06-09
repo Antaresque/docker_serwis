@@ -16,11 +16,32 @@ async function getImageById(req, res) {
 }
 
 async function getImageByUser(req, res){
-    const id = req.params.id;
+    const limit = parseInt(req.query.limit);
+    // offset = ilosc obrazkow na stronie * numer strony
+    const offset = limit * ( parseInt(req.query.page) - 1 );
+    const countP = req.query.count;
+    const id = req.params.userid;
 
+    const options = { 
+        order: [['createdAt', 'DESC']], 
+        limit: limit, 
+        offset: offset,
+        where: { userid: id }
+    }
+
+    //console.log(count);
     try {
-        const items = await ImageView.findAll({ where: { userid: id } });
-        res.send(items);
+        if(countP === 'true') {
+            const { count, rows } = await ImageView.findAndCountAll(options);
+            res.send({ data: rows, totalCount: count });
+        }
+        else if(countP === 'false') {
+            const data = await ImageView.findAll(options);
+            res.send(data);
+        }
+        else{
+            res.sendStatus(400);
+        }
     }
     catch(err) {
         console.log(err.message);
