@@ -1,3 +1,4 @@
+const { User } = require('../../../../services/data_service/src/models');
 const { upload } = require('../../controllers/store');
 const { isEmpty } = require('../../helper');
 
@@ -26,12 +27,20 @@ async function uploadAvatar(req, res){
     if(!req.file)
         return res.status(400).send("Invalid file");
 
+    if(!req.payload.id)
+        return res.status(401).send("Invalid id");
+
     try {
         const status = await upload(req.file, 'avatar');
-        if(isEmpty(status))
+        if(!status)
+            return res.sendStatus(500);
+        
+        const data = await User.edit(req.payload.id, {avatar: status.filename})
+
+        if(isEmpty(data))
             return res.sendStatus(500);
         else
-            return res.sendStatus(200);
+            return res.sendStatus(200); 
     }
     catch(err){
         console.log(err.message);
