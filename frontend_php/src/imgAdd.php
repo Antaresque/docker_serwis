@@ -56,6 +56,9 @@ if(!isset($_SESSION["token"])){
                                 <button type='submit' class='btn btn-lg btn-light'>Dodaj</button>
                                 <p></p>
                             </form>
+                            <?php if(isset($_GET["fail"])): ?>
+                                Nieprawidłowe dane!
+                            <?php endif; ?>
                         </div>
                         <div class="col-3"></div>
                     </div>
