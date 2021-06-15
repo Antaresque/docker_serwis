@@ -62,10 +62,10 @@
             <?php if(!isset($_SESSION["token"])):?>
             
             <?php else: ?>
-                <a href="avtChange.php">
+                <a href="user.php?id=<?= $Uid?>">
                 <button type='button'  class='btn btn-lg btn-light'>
                     <i class='fa fa-user'></i>
-                    Zmień avatar!
+                    Profil
                 </button>
                 </a>
             <?php endif; ?>
