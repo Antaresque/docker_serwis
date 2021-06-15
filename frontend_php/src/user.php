@@ -84,10 +84,10 @@
             <?php if(!isset($_SESSION["token"])):?>
             
             <?php else: ?>
-                <a href="avtChange.php">
+                <a href="user.php?id=<?= $Uid?>">
                 <button type='button'  class='btn btn-lg btn-light'>
                     <i class='fa fa-user'></i>
-                    Zmień avatar!
+                    Profil
                 </button>
                 </a>
             <?php endif; ?>
@@ -116,7 +116,17 @@
                         <div class="col-4 rounded-start">
                             <img class="img-fluid avatar" src="images.php?avatar=<?= $data->avatar ?>">
                         </div>
-                        <div class="col-8">
+                        <div class="col-2">
+                        <?php if($Uid == $id): ?>
+                                <a href="avtChange.php">
+                                <button type='button'  class='btn btn-lg btn-light'>
+                                    <i class='fa fa-wrench'></i>
+                                    Zmień avatar
+                                </button>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-6">
                             <div class="row" align="center">
                                 <h2><?= $data->nickname ?></h2>
                             </div>
