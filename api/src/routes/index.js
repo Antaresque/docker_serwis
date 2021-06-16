@@ -12,7 +12,7 @@ const { getUser, getUserImages } = require('./free/users');
 
 const { addImage, addComment } = require('./user/images');
 const { getImageVote, getCommentVote, setImageVote, undoImageVote, setCommentVote, undoCommentVote } = require('./user/votes'); 
-const { uploadImage, uploadAvatar } = require('./user/upload');
+const { uploadAvatar } = require('./user/upload');
 
 const { updateImage, deleteImage } = require('./owner/images');
 const { updateComment, deleteComment } = require('./owner/comments');

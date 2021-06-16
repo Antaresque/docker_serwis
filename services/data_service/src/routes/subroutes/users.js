@@ -29,7 +29,7 @@ async function getUserById(req, res) {
         return res.sendStatus(400);
 
     try {
-        const userObj = await UserView.findByPk(id, {attributes: ['id', 'nickname', 'avatar', 'images', 'comments', 'createdAt']});
+        const userObj = await UserView.findByPk(id, {attributes: ['id', 'nickname', 'images', 'comments', 'avatar', 'createdAt']});
         if(!userObj)
             return res.sendStatus(400).send("No user by this ID");
 
