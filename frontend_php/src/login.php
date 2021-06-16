@@ -36,6 +36,10 @@
             </div>
             <div class="col-6 main-col rounded" align="center">
                 <h1>Zaloguj się lub zarejestruj</h1><p></p>
+                <?php if(isset($_GET["fail"])): ?>
+                Nieprawidłowe dane logowania!
+                <p></p>
+                <?php endif; ?>
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-6 img-main rounded">

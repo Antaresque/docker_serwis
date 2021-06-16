@@ -12,9 +12,11 @@
                 "file" => $file);
     $string = $_SESSION['link'];
     $data = CurlHelper::perform_multipart_request("POST", "http://api:4000/images/", $arr, $_SESSION["token"]);
-    print_r($arr);
-    print_r($data->status);
-    print_r($data->message);
-    print_r($data->data);
-    header("Location: ".$string);
+    $status = $data->status;
+    if($status==200){
+        header("Location: ".$string);
+    }
+    else{
+        header("Location: imgAdd.php?fail=true");
+    }
 ?>
