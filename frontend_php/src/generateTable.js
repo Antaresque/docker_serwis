@@ -2,6 +2,7 @@ var _table_ = document.createElement('table'),
   _tr_ = document.createElement('tr'),
   _th_ = document.createElement('th'),
   _td_ = document.createElement('td');
+  _btn_ = document.createElement('button');
 
 // Builds the HTML Table out of myList json data from Ivy restful service.
 function buildHtmlTable(arr) {
@@ -15,6 +16,11 @@ function buildHtmlTable(arr) {
       td.appendChild(document.createTextNode(arr[i][columns[j]] || ''));
       tr.appendChild(td);
     }
+    tr.setAttribute('id', arr[i][columns[0]]);
+    var btn = _btn_.cloneNode(false);
+    btn.addEventListener('click', (e) => deleteThis(e))
+    btn.innerHTML = "X";
+    tr.appendChild(btn);
     table.appendChild(tr);
   }
   return table;
@@ -38,4 +44,32 @@ function addAllColumnHeaders(arr, table) {
   }
   table.appendChild(tr);
   return columnSet;
+}
+
+function deleteThis(e) {
+  var target = e.target;
+  let el = target.parentNode;
+  let id = el.id;
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const tb = urlParams.get('tab');
+
+  axios.get('http://localhost/token.php').then(res => {
+    let token = res.data;
+    if(token !== null) {
+      var url = document.location.protocol + "//" + document.location.hostname + ":4000";
+      var api = `${url}/${tb}/${id}`;
+      var options = { headers: { "Authorization": "Bearer " + token } };
+      
+        axios.delete(api, options).then(res => {
+            el.style.display = "none";
+            console.log(`usuniety ${el.id}`)
+        }).catch(err => {
+            console.log(err);
+        });
+      }
+    
+  }).catch(err => {
+      console.log(err);
+  });
 }

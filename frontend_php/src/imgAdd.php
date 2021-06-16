@@ -51,7 +51,7 @@ if(!isset($_SESSION["token"])){
                                 <textarea name="desc" style="min-width: 80%" rows="5" placeholder="Opis obrazka"></textarea>
                                 <p></p>
                                 <p></p>
-                                <input type="file" accept="image/png, image/jpg, image/gif" id="myFile" name="filename">
+                                <input type="file" accept="image/png, image/jpeg, image/gif" id="myFile" name="filename">
                                 <p></p>
                                 <button type='submit' class='btn btn-lg btn-light'>Dodaj</button>
                                 <p></p>

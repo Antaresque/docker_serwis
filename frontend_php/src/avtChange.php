@@ -47,7 +47,7 @@ if(!isset($_SESSION["token"])){
                             <form action="avtPost.php" method="post" enctype="multipart/form-data">
                                 <h1>Zmień avatar!</h1><p></p>
                                 <p></p>
-                                <input type="file" accept="image/png, image/jpg, image/gif" id="myFile" name="filename">
+                                <input type="file" accept="image/png, image/jpeg, image/gif" id="myFile" name="filename">
                                 <p></p>
                                 <button type='submit' class='btn btn-lg btn-light'>Zmień</button>
                                 <p></p>

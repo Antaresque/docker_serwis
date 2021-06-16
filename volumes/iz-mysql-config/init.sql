@@ -274,23 +274,23 @@ ALTER TABLE `votes_comments`
 -- Ograniczenia dla tabeli `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`imgid`) REFERENCES `images` (`id`);
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`imgid`) REFERENCES `images` (`id`) ON DELETE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `images`
 --
 ALTER TABLE `images`
-  ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `votes`
 --
 ALTER TABLE `votes`
-  ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`imgid`) REFERENCES `images` (`id`),
-  ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`imgid`) REFERENCES `images` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 ALTER TABLE `votes_comments`
-  ADD CONSTRAINT `votes_comments_ibfk_1` FOREIGN KEY (`commentid`) REFERENCES `comments` (`id`),
-  ADD CONSTRAINT `votes_comments_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `votes_comments_ibfk_1` FOREIGN KEY (`commentid`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `votes_comments_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
